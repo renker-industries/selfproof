@@ -137,3 +137,16 @@ invariants, and the tamper-evident audit chain.
 
 Proprietary — "All rights reserved" (see [`LICENSE`](LICENSE)). © 2026 Sebastian
 Renker. Confirm or change before any distribution.
+
+### Why this repository is public but not open source
+
+`renker-core` follows an **open-core** model. The public, freely reusable primitive
+is [`renker-core-authz`](https://github.com/sebastianrenker/renker-core-authz)
+(**Apache-2.0**): the deterministic capability + policy + tamper-evident audit engine,
+dependency-free and usable standalone. `renker-core` is the broader proprietary
+platform foundation (identity, permissions, audit, policy) built around that primitive.
+
+The source is published for transparency and review. Being public does **not** grant a
+license: no permission to use, copy, modify, or distribute `renker-core` is given
+without prior written consent. If you want an open, reusable building block, start with
+`renker-core-authz`.

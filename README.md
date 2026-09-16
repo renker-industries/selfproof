@@ -73,8 +73,11 @@ RBAC/ABAC/Remote/Composite engines are documented extension points, not built
 - **No home-grown crypto**: signature verification is an interface, not an
   implementation. No dummy security, no `return True` in authz code.
 
-Honest non-guarantees: [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md),
-[`SECURITY_ATTACKS.md`](SECURITY_ATTACKS.md).
+Security properties (each row mapped to a real test):
+[`SECURITY_PROPERTIES.md`](SECURITY_PROPERTIES.md). Honest non-guarantees:
+[`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md),
+[`SECURITY_ATTACKS.md`](SECURITY_ATTACKS.md). Measured latency:
+[`benchmarks/RESULTS.md`](benchmarks/RESULTS.md).
 
 **Status / roadmap:** the full primitive set (Identity, Capability, Permission,
 Policy, Context, Decision, Risk, Approval, Replay, Audit, Authorizer) is

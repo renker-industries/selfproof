@@ -75,7 +75,7 @@ Recall: Why is defense (2) stronger than defense (1)? What does (2) still not pr
 ## §10 Rencora Security Architecture
 
 rencora already has: tool-risk levels + confirmation gate, a home-root path check, an audit log, and
-external-content wrapping (see `RENKER_PLATFORM_AUDIT.md`). renker-core adds the missing **fine-grained,
+external-content wrapping (see `docs/archive/RENKER_PLATFORM_AUDIT.md`). renker-core adds the missing **fine-grained,
 actor-bound, revocable, scoped** layer on top — it does not replace rencora's coarse gate.
 
 Recall: Give one thing rencora's existing `policy.py` does that renker-core does **not**, and one thing

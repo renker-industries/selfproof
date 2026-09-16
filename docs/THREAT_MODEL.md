@@ -92,7 +92,7 @@ protect against a fully compromised host OS account.
 - **No enforcement outside the guard.** An agent that calls the OS directly, bypassing
   `GuardedFilesystem`, is not constrained by renker-core. Enforcement is only as good as the
   routing of actions through the guard. Wiring rencora's dispatch to route through the guard is
-  the next step and is tracked in `PHASE_2_REPORT.md`.
+  the next step and is tracked in `docs/archive/PHASE_2_REPORT.md`.
 - **Audit crash window.** The append is `fsync`ed and the anchor replaced atomically, but they are two
   steps. A crash *between* them leaves the log with one more entry than the anchor records; `verify()`
   reports this as a head mismatch (indistinguishable at a glance from a one-entry truncation). This is a

@@ -1,11 +1,11 @@
 # permissions
 
-**Primitiv:** Permissions
+**Primitive:** Permissions
 
-**Zweck:** Auswertung von Capabilities gegen Policy-Regeln und Steuerung der Approval-Flows (auto / deny / human). Setzt das Capability-Modell aus Abschnitt 3.1 der Vision generisch nutzbar um.
+**Purpose:** Evaluation of capabilities against policy rules and control of the approval flows (auto / deny / human). Implements the capability model from section 3.1 of the Vision in a generically usable form.
 
-**Genutzt von:** primär Rencora; Continuum für Tool-Zugriffe.
+**Used by:** primarily Rencora; Continuum for tool access.
 
-> Sicherheitsrelevantes Modul. Änderungen hier durchlaufen den Builder→Attacker→Reviewer-Zyklus aus `CONTRIBUTING.md`.
+> Security-relevant module. Changes here go through the Builder→Attacker→Reviewer cycle from `CONTRIBUTING.md`.
 
-Platzhalter-Modul ohne Geschäftslogik.
+Placeholder module without business logic.

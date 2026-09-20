@@ -1,39 +1,39 @@
 # Product & Business
 
-## Produktportfolio
+## Product portfolio
 
-| Ebene | Produkt | Zielgruppe |
+| Tier | Product | Audience |
 |---|---|---|
-| **Free / Open Source** | Rencora Core, RenkerVault Protocol, Continuum Research Framework | Community, Forschung, Reputation, Vertrauen durch Transparenz |
-| **Developer** | Renker SDK (Capabilities → Policy → Secure Execution → Audit) | Entwickler, die eigene Agenten sicher bauen |
-| **Enterprise** | Renker Agent Security Platform (Identity, Permissions, Sandboxing, Policy, Audit, Secrets, Secure Comms, Deployment, Compliance) | Unternehmen mit produktiven KI-Agenten |
-| **Research** | Continuum Research Platform | Institutionen, Labore, Forschungsteams |
+| **Free / Open Source** | Rencora Core, RenkerVault Protocol, Continuum Research Framework | Community, research, reputation, trust through transparency |
+| **Developer** | Renker SDK (Capabilities → Policy → Secure Execution → Audit) | Developers who want to build their own agents securely |
+| **Enterprise** | Renker Agent Security Platform (Identity, Permissions, Sandboxing, Policy, Audit, Secrets, Secure Comms, Deployment, Compliance) | Companies with production AI agents |
+| **Research** | Continuum Research Platform | Institutions, labs, research teams |
 
-Die Open-Source-Ebene ist strategisch: Vertrauen (Code ist prüfbar), Reputation, Trichter in die kommerziellen Tarife.
+The open-source tier is strategic: trust (code is inspectable), reputation, a funnel into the commercial tiers.
 
-## Geschäftsmodell — B2B statt Consumer-Masse
+## Business model — B2B rather than a consumer mass market
 
-| Tarif | Preis | Zielgruppe |
+| Tier | Price | Audience |
 |---|---|---|
-| Developer | €0–49 / Monat | Einzelentwickler |
-| Pro | €100–500 / Monat | kleine Teams, Startups |
-| Business | €1.000–10.000 / Monat | Mittelstand mit produktiven Agenten |
-| Enterprise | individuell | große Organisationen, Compliance |
-| Research | individuell | Institutionen, Labore |
+| Developer | €0–49 / month | Individual developers |
+| Pro | €100–500 / month | Small teams, startups |
+| Business | €1,000–10,000 / month | Mid-sized companies with production agents |
+| Enterprise | custom | Large organizations, compliance |
+| Research | custom | Institutions, labs |
 
-**Rechenbeispiele (Zielszenarien, keine Prognosen):**
+**Illustrative calculations (target scenarios, not forecasts):**
 
 ```
-100 Unternehmen × €2.500 / Monat = €250.000 MRR ≈ €3 Mio ARR
-500 Unternehmen × €5.000 / Monat = €2,5 Mio MRR ≈ €30 Mio ARR
+100 companies × €2,500 / month = €250,000 MRR ≈ €3M ARR
+500 companies × €5,000 / month = €2.5M MRR ≈ €30M ARR
 ```
 
-**Werttreiber:** Ein verhinderter Sicherheitsvorfall kostet ein Unternehmen ein Vielfaches der Lizenzkosten (verlorene Daten, offengelegte Geheimnisse, kompromittierte Zugangsdaten). Dieser vermiedene Schaden ist der eigentliche Business Case.
+**Value driver:** A prevented security incident costs a company a multiple of the license cost (lost data, exposed secrets, compromised credentials). This avoided damage is the actual business case.
 
-> **Ehrlichkeit:** Diese Zahlen ordnen Größenordnungen ein, sie sind keine belastbare Finanzplanung. Eine echte Prognose braucht Marktvalidierung (siehe [[Roadmap]], Monate 7–12).
+> **Honesty:** These numbers put orders of magnitude in context; they are not a dependable financial plan. A real forecast needs market validation (see [[Roadmap]], months 7–12).
 
-## Priorisierung
+## Prioritization
 
-1. 🥇 **Rencora** — Agent Security, kurzfristiger Produktkandidat mit messbarem Business Case.
-2. 🥈 **RenkerVault** — Security Foundation, sichert Rencora ab.
-3. 🥉 **Continuum** — Research/Moonshot, wächst wissenschaftlich langsam und sauber.
+1. 🥇 **Rencora** — agent security, a short-term product candidate with a measurable business case.
+2. 🥈 **RenkerVault** — security foundation, backs Rencora.
+3. 🥉 **Continuum** — research/moonshot, grows scientifically, slowly and cleanly.

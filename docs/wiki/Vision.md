@@ -1,31 +1,31 @@
 # Vision
 
-## Die These
+## The thesis
 
-Die nächste Generation von KI-Systemen wird **nicht** primär daran gemessen, wie intelligent sie ist, sondern daran, **wie kontrollierbar, überprüfbar und vertrauenswürdig** sie beim eigenständigen Handeln ist.
+The next generation of AI systems will **not** primarily be measured by how intelligent it is, but by **how controllable, auditable, and trustworthy** it is when acting on its own.
 
-Die Leitfrage lautet nicht mehr „Wie intelligent ist das Modell?", sondern: *„Wie viel darf dieses System selbstständig tun, und wie können wir ihm dabei vertrauen?"*
+The guiding question is no longer "How intelligent is the model?", but: *"How much may this system do on its own, and how can we trust it while it does?"*
 
-## Das Unternehmen und die Produkte
+## The company and the products
 
-Das Unternehmen heißt **Renker**. Rencora ist ein *Produkt* von Renker, kein Synonym. Drei Produktsäulen bedienen die These aus unterschiedlichen Richtungen:
+The company is called **Renker**. Rencora is a *product* of Renker, not a synonym. Three product pillars serve the thesis from different directions:
 
-| Säule | Rolle | Kernfrage |
+| Pillar | Role | Core question |
 |---|---|---|
-| **Rencora** (ACT) | Agent Runtime mit Capability Security | Was darf ein Agent tun, und wie wird das durchgesetzt? |
-| **RenkerVault** (SECURE) | Identity- und Secure-Communication-Layer | Wem kann ein Agent vertrauen, und wie bleiben Daten geschützt? |
-| **Continuum** (LEARN) | Autonome Forschungs- und Discovery-Engine | Wie wird aus Beobachtung geprüftes Wissen — ohne Halluzination als Fakt zu verkaufen? |
+| **Rencora** (ACT) | Agent runtime with capability security | What may an agent do, and how is that enforced? |
+| **RenkerVault** (SECURE) | Identity and secure-communication layer | Whom can an agent trust, and how does data stay protected? |
+| **Continuum** (LEARN) | Autonomous research and discovery engine | How does observation become verified knowledge — without selling hallucination as fact? |
 
-Alle drei teilen sich das Fundament **renker-core** — gemeinsame Primitive, nicht gemeinsame Business-Logik.
+All three share the foundation **renker-core** — shared primitives, not shared business logic.
 
-## Der kommerzielle Kern
+## The commercial core
 
-Der stärkste kurzfristige Hebel liegt nicht im Consumer-Bereich, sondern in **Agent Security für Unternehmen** — B2B/SaaS. Realistische Zielgröße: niedriger bis mittlerer einstelliger Millionenbereich ARR bei 100–500 zahlenden Unternehmen, nicht Millionen Endnutzer.
+The strongest short-term lever is not in the consumer space, but in **agent security for enterprises** — B2B/SaaS. Realistic target size: low to mid single-digit millions ARR with 100–500 paying companies, not millions of end users.
 
-## Der nächste Meilenstein
+## The next milestone
 
-Bewusst klein und konkret: **ein einzelner unabhängiger Nutzer, der freiwillig zahlt.** Danach 10, dann 100 Kunden — so wird aus einer Vision ein Unternehmen.
+Deliberately small and concrete: **a single independent user who voluntarily pays.** After that 10, then 100 customers — that is how a vision becomes a company.
 
-## Die eigentliche Wette
+## The actual bet
 
-Nicht „eines dieser Repos macht reich", sondern: Sebastian entwickelt sich zu einem Gründer/Ingenieur, der KI nutzt, um technische Systeme schneller zu erforschen und zu bauen als ein traditionelles kleines Team — eine **Forschungs- und Produktmaschine**.
+Not "one of these repos gets rich", but: Sebastian develops into a founder/engineer who uses AI to research and build technical systems faster than a traditional small team — a **research and product machine**.

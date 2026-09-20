@@ -1,33 +1,33 @@
 # Working with Claude Code
 
-Der eigentliche Hebel liegt nicht nur im Produkt, sondern in der Art, wie es gebaut wird: Trial-and-Error wird zu einem systematischen Prozess.
+The actual leverage lies not only in the product, but in the way it is built: trial-and-error becomes a systematic process.
 
-## Die Grundschleife
+## The basic loop
 
 ```
-DU (Hypothese)
+YOU (hypothesis)
    ↓
-CLAUDE (Implementierung)
+CLAUDE (implementation)
    ↓
-AUTOMATISIERTE TESTS
-   ├── PASS → fertig
-   └── FAIL → CLAUDE ATTACKER → GEGENBEISPIEL → CLAUDE FIX → (zurück zu den Tests)
+AUTOMATED TESTS
+   ├── PASS → done
+   └── FAIL → CLAUDE ATTACKER → COUNTEREXAMPLE → CLAUDE FIX → (back to the tests)
 ```
 
-## Erweiterte Schleife für sicherheitskritische Bausteine
+## Extended loop for security-critical building blocks
 
-Für alles unter `permissions/`, `capabilities/`, `crypto_interface/` (und die RenkerVault-Krypto-Schicht) gilt nie „Builder → fertig", sondern:
+For everything under `permissions/`, `capabilities/`, `crypto_interface/` (and the RenkerVault crypto layer), "Builder → done" never applies; instead:
 
 ```
 Builder Agent → Attacker Agent → Reviewer Agent → Test Generator → Human Decision
 ```
 
-## Konkrete Praxis
+## Concrete practice
 
-1. **Jede Aufgabe bekommt eine klare Definition of Done**, bevor Code geschrieben wird — abgeleitet aus der [[Roadmap]].
-2. **Sicherheitsrelevante Änderungen** durchlaufen immer den Builder→Attacker→Reviewer-Zyklus.
-3. **Der Attacker-Agent** bekommt explizit den Auftrag, das Feature zu *brechen* (z. B. „umgehe mit einer manipulierten Website-Payload eine Capability-Grenze"). Das ist mehr als ein Code-Review.
-4. **Du bleibst Architekt und letzte Instanz** — besonders bei Policy-Entscheidungen wie „Was zählt als kritisches Risiko?". Das ist eine Produkt-/Wertentscheidung.
-5. **`RENKER_VISION.md`** liegt als Referenzdatei in den Repos, damit Architekturfragen nicht in jeder Session neu erfunden werden.
+1. **Every task gets a clear Definition of Done** before code is written — derived from the [[Roadmap]].
+2. **Security-relevant changes** always go through the Builder→Attacker→Reviewer cycle.
+3. **The attacker agent** is explicitly tasked to *break* the feature (e.g. "bypass a capability boundary with a manipulated website payload"). This is more than a code review.
+4. **You remain the architect and final authority** — especially for policy decisions like "What counts as critical risk?". That is a product/value decision.
+5. **`RENKER_VISION.md`** lives as a reference file in the repos, so that architecture questions are not reinvented in every session.
 
-Siehe auch [`CONTRIBUTING.md`](../../CONTRIBUTING.md).
+See also [`CONTRIBUTING.md`](../../CONTRIBUTING.md).

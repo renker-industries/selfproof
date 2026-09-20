@@ -1,9 +1,9 @@
 # events
 
-**Primitiv:** Events
+**Primitive:** Events
 
-**Zweck:** Append-only Event-Log als Rückgrat für Audit und Reaktivität. Beantwortet produktübergreifend die Frage „Was ist passiert?" in einer nicht nachträglich veränderbaren Reihenfolge.
+**Purpose:** Append-only event log as the backbone for audit and reactivity. Answers the question "What happened?" across products, in an append-only order.
 
-**Genutzt von:** allen drei Säulen.
+**Used by:** all three pillars.
 
-Platzhalter-Modul ohne Geschäftslogik.
+Placeholder module without business logic.

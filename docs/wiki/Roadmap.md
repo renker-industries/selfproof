@@ -1,45 +1,45 @@
-# Roadmap — 12 Monate
+# Roadmap — 12 months
 
-## Monate 1–3: Fundament
+## Months 1–3: Foundation
 
 **Rencora**
-- [ ] Capability-/Permission-System (Schema, Speicherung, Prüfung)
-- [ ] Sandboxing für Tool-Ausführung
-- [ ] Audit-Log (append-only, abfragbar)
-- [ ] Erste Prompt-Injection-Testsuite
+- [ ] Capability/permission system (schema, storage, checking)
+- [ ] Sandboxing for tool execution
+- [ ] Audit log (append-only, queryable)
+- [ ] First prompt-injection test suite
 
 **RenkerVault**
-- [ ] Protokollspezifikation (schriftlich, versioniert)
-- [ ] Bedrohungsmodell (explizit dokumentiert, mit Out-of-Scope)
-- [ ] Testvektoren für die Krypto-Schicht
-- [ ] Fuzzing-Setup
-- [ ] Externes oder strukturiertes internes Krypto-Review
+- [ ] Protocol specification (written, versioned)
+- [ ] Threat model (explicitly documented, with out-of-scope)
+- [ ] Test vectors for the crypto layer
+- [ ] Fuzzing setup
+- [ ] External or structured internal crypto review
 
 **Continuum**
-- [ ] Benchmark-Suite definieren
-- [ ] Baselines festlegen
-- [ ] Reproduzierbare Experiment-Pipeline
-- [ ] Evaluationsframework (inkl. Evidenzstatus-Feldern)
+- [ ] Define a benchmark suite
+- [ ] Establish baselines
+- [ ] Reproducible experiment pipeline
+- [ ] Evaluation framework (incl. evidence-status fields)
 
-*Definition of Done (Monat 3):* Alle drei Repos haben ein lauffähiges, testbares Minimalsystem — nicht „fertig", aber demonstrierbar.
+*Definition of Done (month 3):* All three repos have a runnable, testable minimal system — not "finished", but demonstrable.
 
-## Monate 4–6: Stabilisierung
-- [ ] Rencora: Permission-System und Sandbox laufen im Zusammenspiel
-- [ ] RenkerVault: stabiles Protokoll v1, eingefroren für externe Reviews
-- [ ] Continuum: erste reproduzierbare Research-Benchmarks veröffentlicht
+## Months 4–6: Stabilization
+- [ ] Rencora: permission system and sandbox work together
+- [ ] RenkerVault: stable protocol v1, frozen for external reviews
+- [ ] Continuum: first reproducible research benchmarks published
 
-## Monate 7–9: Realität testen
-- [ ] Echte externe Nutzer (nicht Freunde, nicht nur GitHub-Stars)
-- [ ] Menschen mit echten eigenen Problemen testen an eigenen Anwendungsfällen
-- [ ] Systematisch einsammeln: Wo bricht Nutzung ab? Wofür würde jemand zahlen? Was wird ignoriert?
+## Months 7–9: Test reality
+- [ ] Real external users (not friends, not just GitHub stars)
+- [ ] People with real problems of their own test on their own use cases
+- [ ] Systematically collect: where does usage break off? What would someone pay for? What gets ignored?
 
-## Monate 10–12: Richtung festlegen
-- [ ] Auswertung: Für welchen Teil zahlt tatsächlich jemand?
-- [ ] Fokussierung für Jahr 2 ableiten (voraussichtlich Rencora/Agent Security als Kern)
+## Months 10–12: Set direction
+- [ ] Evaluation: which part does someone actually pay for?
+- [ ] Derive the focus for year 2 (likely Rencora/agent security as the core)
 
 ---
 
-### renker-core — unmittelbar nächster Schritt (Monat-1-Meilenstein)
-- [ ] Identity, Permissions, Audit als lauffähige, kommentarfreie Module (gemäß Vision 5.1/5.2)
-- [ ] Permission-Objekt-Schema implementieren
-- [ ] Append-only Audit-Log mit Hash-Chain
+### renker-core — immediate next step (month-1 milestone)
+- [ ] Identity, Permissions, Audit as runnable, comment-free modules (per Vision 5.1/5.2)
+- [ ] Implement the permission-object schema
+- [ ] Append-only audit log with hash chain

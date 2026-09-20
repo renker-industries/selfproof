@@ -2,33 +2,33 @@
 
 > **Renker builds infrastructure for AI systems that can act, learn and communicate without requiring blind trust.**
 
-Willkommen im Wissensspeicher von **renker-core**, dem gemeinsamen Fundament der Renker-Plattform. Diese Seiten sind eigenständige Zusammenfassungen der `RENKER_VISION.md` — der Volltext bleibt die Quelle der Wahrheit.
+Welcome to the knowledge base of **renker-core**, the shared foundation of the Renker platform. These pages are standalone summaries of `RENKER_VISION.md` — the full text remains the source of truth.
 
-> ℹ️ Hinweis: renker-core ist ein **privates** Repository. Auf dem aktuellen GitHub-Plan sind Wikis für private Repos nicht verfügbar, daher liegen diese „Wiki"-Seiten als Markdown unter [`docs/wiki/`](.) direkt im Repo — versioniert mit dem Code.
+> ℹ️ Note: renker-core is a **private** repository. On the current GitHub plan, wikis are not available for private repos, so these "wiki" pages live as Markdown under [`docs/wiki/`](.) directly in the repo — versioned with the code.
 
 ## Navigation
 
-- [[Vision]] — Worum es geht und warum (Abschnitte 0–1)
-- [[Architecture]] — Plattformarchitektur, die drei Säulen, renker-core (Abschnitte 2–4)
-- [[Agent-Security]] — Capability Security, Policy Engine, Risikostufen (Abschnitt 5)
-- [[Product-and-Business]] — Produktportfolio und Geschäftsmodell (Abschnitte 6–7)
-- [[Roadmap]] — 12-Monats-Plan als Checkliste (Abschnitt 10)
-- [[Working-with-Claude-Code]] — Builder→Attacker→Reviewer-Arbeitsweise (Abschnitt 11)
-- [[Glossary]] — Begriffe (Anhang A)
+- [[Vision]] — What it's about and why (sections 0–1)
+- [[Architecture]] — Platform architecture, the three pillars, renker-core (sections 2–4)
+- [[Agent-Security]] — Capability security, policy engine, risk levels (section 5)
+- [[Product-and-Business]] — Product portfolio and business model (sections 6–7)
+- [[Roadmap]] — 12-month plan as a checklist (section 10)
+- [[Working-with-Claude-Code]] — Builder→Attacker→Reviewer way of working (section 11)
+- [[Glossary]] — Terms (Appendix A)
 
-## Die drei Säulen
+## The three pillars
 
-| Säule | Rolle | Repo |
+| Pillar | Role | Repo |
 |---|---|---|
-| **Rencora** | ACT — Agent Runtime mit Capability Security | https://github.com/sebastianrenker/rencora |
-| **RenkerVault** | SECURE — Identity- & Secure-Communication-Layer | https://github.com/sebastianrenker/renkervault |
-| **Continuum** | LEARN — autonome Forschungs-Engine | https://github.com/sebastianrenker/continuum |
+| **Rencora** | ACT — agent runtime with capability security | https://github.com/sebastianrenker/rencora |
+| **RenkerVault** | SECURE — identity & secure-communication layer | https://github.com/sebastianrenker/renkervault |
+| **Continuum** | LEARN — autonomous research engine | https://github.com/sebastianrenker/continuum |
 
-## Die neun Primitive
+## The nine primitives
 
 `identity` · `capabilities` · `permissions` · `events` · `memory` · `tasks` · `audit` · `policy` · `crypto_interface` · `protocol`
 
-## ⬇️ Renker für Windows herunterladen
+## ⬇️ Download Renker for Windows
 
-Der nutzerseitige Desktop-Agent ist **Rencora**:
+The user-facing desktop agent is **Rencora**:
 **https://github.com/sebastianrenker/rencora/releases/latest**

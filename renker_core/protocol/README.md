@@ -1,9 +1,9 @@
 # protocol
 
-**Primitiv:** Protocol
+**Primitive:** Protocol
 
-**Zweck:** Wire-Format für die Kommunikation zwischen Produkten und Geräten der Plattform. Legt fest, wie Identitäten, Capabilities, Events und Tasks über Prozess- und Gerätegrenzen hinweg serialisiert werden.
+**Purpose:** Wire format for communication between the platform's products and devices. Defines how identities, capabilities, events, and tasks are serialized across process and device boundaries.
 
-**Genutzt von:** allen drei Säulen (indirekt, über gemeinsame Nachrichtenformate).
+**Used by:** all three pillars (indirectly, via shared message formats).
 
-Platzhalter-Modul ohne Geschäftslogik.
+Placeholder module without business logic.

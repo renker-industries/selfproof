@@ -1,11 +1,11 @@
 # policy
 
-**Primitiv:** Policy Engine
+**Primitive:** Policy Engine
 
-**Zweck:** Bewertet eingehende Aktionen gegen Risikoregeln und trifft Allow/Deny/Approval-Entscheidungen. Arbeitet mit vier Risikostufen — low, medium, high, critical — gemäß Abschnitt 5.3 der Vision.
+**Purpose:** Evaluates incoming actions against risk rules and makes Allow/Deny/Approval decisions. Works with four risk levels — low, medium, high, critical — per section 5.3 of the Vision.
 
-**Genutzt von:** allen drei Säulen (über die Permissions-Auswertung).
+**Used by:** all three pillars (via the permissions evaluation).
 
-> Sicherheitsrelevantes Modul im weiteren Sinne. Risikostufen-Definitionen sind Produkt-/Wertentscheidungen und bleiben beim Menschen als letzter Instanz.
+> Security-relevant module in the broader sense. Risk-level definitions are product/value decisions and stay with the human as the final authority.
 
-Platzhalter-Modul ohne Geschäftslogik.
+Placeholder module without business logic.

@@ -1,35 +1,35 @@
-# Sicherheitsmodell — renker-core
+# Security model — renker-core
 
-`renker-core` stellt die Primitive bereit, mit denen die Renker-Plattform autonomes Handeln **kontrollierbar, überprüfbar und widerrufbar** macht. Dieses Dokument fasst das Capability- und Risikostufen-Modell zusammen (Vollfassung: `RENKER_VISION.md`, Abschnitt 5).
+`renker-core` provides the primitives with which the Renker platform makes autonomous action **controllable, auditable, and revocable**. This document summarizes the capability and risk-level model (full version: `RENKER_VISION.md`, section 5).
 
-## Capability Security
+## Capability security
 
-Kein Akteur besitzt pauschale Rechte („Terminalzugriff", „Dateisystemzugriff"). Jede Fähigkeit ist ein einzeln erteiltes, einzeln widerrufbares Objekt mit sechs Eigenschaften:
+No actor holds blanket rights ("terminal access", "filesystem access"). Every capability is an individually granted, individually revocable object with six properties:
 
-- **Permission** — welche Aktion genau erlaubt ist (nicht „Dateisystem", sondern „lesend, unter diesem Pfad-Prefix").
-- **Scope** — die konkrete Grenze (Pfad, Domain, Prozessname).
-- **Lifetime** — Ablaufzeit oder Sitzungsbindung; keine Capability lebt standardmäßig für immer.
-- **Audit Trail** — jede Nutzung wird unveränderlich protokolliert.
-- **Approval Policy** — `auto` / `deny` / `human`, abhängig vom Risiko.
-- **Revocation** — jederzeit sofort entziehbar, auch mitten in einer laufenden Aktion.
+- **Permission** — exactly which action is allowed (not "filesystem", but "read, under this path prefix").
+- **Scope** — the concrete boundary (path, domain, process name).
+- **Lifetime** — expiry time or session binding; no capability lives forever by default.
+- **Audit Trail** — every use is logged tamper-evidently.
+- **Approval Policy** — `auto` / `deny` / `human`, depending on risk.
+- **Revocation** — instantly revocable at any time, even in the middle of a running action.
 
-## Risikostufen
+## Risk levels
 
-| Stufe | Beispielaktionen | Standardverhalten |
+| Level | Example actions | Default behavior |
 |---|---|---|
-| **Niedrig** | Datei lesen in erlaubtem Scope, Web-Recherche in Allowlist | automatisch erlaubt, protokolliert |
-| **Mittel** | Datei außerhalb bekannter Scopes schreiben, neue Domain kontaktieren | erlaubt mit Warnung oder Freigabe nach Policy |
-| **Hoch** | Zugriff auf Zugangsdaten/Schlüssel, Löschoperationen, Zahlungsauslösung | menschliche Freigabe erforderlich |
-| **Kritisch** | Zugriff auf `.ssh`, Produktionsdatenbanken, irreversible Löschung | standardmäßig verweigert, nur mit explizitem Override |
+| **Low** | Read a file in an allowed scope, web research in an allowlist | automatically allowed, logged |
+| **Medium** | Write a file outside known scopes, contact a new domain | allowed with a warning or approval per policy |
+| **High** | Access to credentials/keys, delete operations, payment triggering | human approval required |
+| **Critical** | Access to `.ssh`, production databases, irreversible deletion | denied by default, only with an explicit override |
 
-## Audit-Log
+## Audit log
 
-Sicherheitsrelevante Aktionen werden append-only und kryptografisch verkettet (Hash-Chain über `sha256`) protokolliert, sodass auch ein kompromittierter Agent seine Spuren nicht nachträglich verwischen kann.
+Security-relevant actions are logged append-only and cryptographically chained (hash chain over `sha256`), so that even a compromised agent cannot silently erase its traces after the fact. This makes tampering **detectable** (tamper-evident), not impossible (an attacker who can rewrite both the log and its anchor is out of scope).
 
-## Kryptografie
+## Cryptography
 
-`renker_core/crypto_interface/` enthält **nur Schnittstellen**. Es wird keine eigene Kryptografie implementiert; die Umsetzung erfolgt in einem separaten, streng auditierten Modul auf Basis etablierter Primitive (libsodium/NaCl, Signal-Protokoll). Siehe Vision, Abschnitt 4.3.
+`renker_core/crypto_interface/` contains **interfaces only**. No cryptography of its own is implemented; the implementation lives in a separate, strictly audited module based on established primitives (libsodium/NaCl, Signal protocol). See Vision, section 4.3.
 
-## Meldung von Schwachstellen
+## Reporting vulnerabilities
 
-Sicherheitslücken bitte **nicht** über öffentliche Issues melden, sondern vertraulich an den Repository-Eigentümer. Da dieses Repo privat ist, genügt vorerst eine direkte Kontaktaufnahme.
+Please do **not** report security issues via public issues, but confidentially to the repository owner. Since this repo is private, a direct contact suffices for now.

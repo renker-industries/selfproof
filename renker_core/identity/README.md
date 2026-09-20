@@ -1,9 +1,9 @@
 # identity
 
-**Primitiv:** Identity
+**Primitive:** Identity
 
-**Zweck:** Eindeutige, überprüfbare Identität für jeden Akteur der Plattform — Mensch, Agent, Gerät oder Dienst. Beantwortet die Frage „Wer bin ich?" produktübergreifend und einheitlich.
+**Purpose:** A unique, verifiable identity for every actor of the platform — human, agent, device, or service. Answers the question "Who am I?" uniformly across products.
 
-**Genutzt von:** allen drei Säulen (Rencora, Continuum, RenkerVault).
+**Used by:** all three pillars (Rencora, Continuum, RenkerVault).
 
-Dies ist ein Platzhalter-Modul aus dem Fundament-Bootstrap. Es enthält noch keine Geschäftslogik, sondern nur die importierbare Struktur, gegen die spätere Iterationen bauen. Die geplante Umsetzung als lauffähiges Modul folgt dem Monat-1-Meilenstein (siehe Wiki `Roadmap`).
+This is a placeholder module from the foundation bootstrap. It contains no business logic yet, only the importable structure that later iterations build against. The planned implementation as a runnable module follows the month-1 milestone (see the wiki `Roadmap`).

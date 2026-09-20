@@ -1,9 +1,9 @@
 # tasks
 
-**Primitiv:** Tasks
+**Primitive:** Tasks
 
-**Zweck:** Einheitliche Repräsentation von „etwas, das erledigt werden soll" über alle Produkte hinweg — von einem Rencora-Auftrag bis zu einem Continuum-Experimentschritt.
+**Purpose:** A uniform representation of "something to be done" across all products — from a Rencora job to a Continuum experiment step.
 
-**Genutzt von:** allen drei Säulen.
+**Used by:** all three pillars.
 
-Platzhalter-Modul ohne Geschäftslogik.
+Placeholder module without business logic.

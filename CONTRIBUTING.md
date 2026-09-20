@@ -1,26 +1,26 @@
-# Mitwirken an renker-core
+# Contributing to renker-core
 
-`renker-core` ist das sicherheitskritische Fundament der Renker-Plattform. Beiträge folgen einem bewusst strengen Ablauf.
+`renker-core` is the security-critical foundation of the Renker platform. Contributions follow a deliberately strict process.
 
-## Grundregeln
+## Ground rules
 
-- **Kein Code-Kommentar-Stil.** Code in diesem Repo enthält keine Inline-Kommentare, Docstrings, JSDoc oder `TODO`-Marker. Verständlichkeit entsteht durch klare Benennung. Dokumentation gehört in `README.md`-Dateien, ADRs und das Wiki.
-- **Keine Secrets committen.** Keine API-Keys, Tokens oder `.env`-Dateien.
-- **Kein Force-Push** auf gemeinsame Branches.
-- **Tests und Lint müssen grün sein** (`pytest`, `ruff check`), bevor gemergt wird.
+- **No code-comment style.** Code in this repo contains no inline comments, docstrings, JSDoc, or `TODO` markers. Understandability comes from clear naming. Documentation belongs in `README.md` files, ADRs, and the wiki.
+- **Do not commit secrets.** No API keys, tokens, or `.env` files.
+- **No force-push** to shared branches.
+- **Tests and lint must be green** (`pytest`, `ruff check`) before merging.
 
-## Der Builder → Attacker → Reviewer-Zyklus
+## The Builder → Attacker → Reviewer cycle
 
-Für **sicherheitsrelevante Änderungen** — alles unter `renker_core/permissions/`, `renker_core/capabilities/` und `renker_core/crypto_interface/` — reicht „Builder → fertig" **nicht**. Diese Änderungen durchlaufen immer:
+For **security-relevant changes** — anything under `renker_core/permissions/`, `renker_core/capabilities/`, and `renker_core/crypto_interface/` — "Builder → done" is **not** enough. These changes always go through:
 
-1. **Builder** — implementiert das Feature mit klarer Definition of Done.
-2. **Attacker** — bekommt explizit den Auftrag, das Feature zu **brechen** (z. B. „umgehe mit einer manipulierten Website-Payload eine Capability-Grenze"). Das ist kein normaler Code-Review, sondern eine gezielte Angriffssimulation.
-3. **Reviewer** — bewertet Implementierung und Angriffsergebnisse und entscheidet über Nachbesserungen.
-4. **Test Generator** — leitet aus dem Gegenbeispiel dauerhafte Regressionstests ab.
-5. **Human Decision** — Policy-Entscheidungen (z. B. „Was zählt als kritisches Risiko?") bleiben beim Menschen als letzter Instanz.
+1. **Builder** — implements the feature with a clear Definition of Done.
+2. **Attacker** — is explicitly tasked to **break** the feature (e.g. "bypass a capability boundary with a manipulated website payload"). This is not a normal code review but a targeted attack simulation.
+3. **Reviewer** — evaluates the implementation and the attack results and decides on remediations.
+4. **Test Generator** — derives permanent regression tests from the counterexample.
+5. **Human Decision** — policy decisions (e.g. "What counts as critical risk?") stay with the human as the final authority.
 
-Details siehe `RENKER_VISION.md`, Abschnitt 11.
+For details, see `RENKER_VISION.md`, section 11.
 
-## Crypto-Boundary
+## Crypto boundary
 
-In `renker_core/crypto_interface/` werden **ausschließlich Schnittstellen** definiert — niemals kryptografische Implementierungen. Siehe `renker_core/crypto_interface/README.md` und `SECURITY.md`.
+In `renker_core/crypto_interface/`, **only interfaces** are defined — never cryptographic implementations. See `renker_core/crypto_interface/README.md` and `SECURITY.md`.

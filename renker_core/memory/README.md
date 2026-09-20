@@ -1,9 +1,9 @@
 # memory
 
-**Primitiv:** Memory
+**Primitive:** Memory
 
-**Zweck:** Gemeinsames Gedächtnismodell mit episodischen und semantischen Anteilen und mit Quellenverweisen, damit gespeichertes Wissen auf seine Herkunft zurückführbar bleibt.
+**Purpose:** A shared memory model with episodic and semantic parts and with source references, so that stored knowledge remains traceable to its origin.
 
-**Genutzt von:** Rencora und Continuum.
+**Used by:** Rencora and Continuum.
 
-Platzhalter-Modul ohne Geschäftslogik.
+Placeholder module without business logic.

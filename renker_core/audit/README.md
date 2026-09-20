@@ -1,9 +1,9 @@
 # audit
 
-**Primitiv:** Audit
+**Primitive:** Audit
 
-**Zweck:** Unveränderliches, abfragbares Protokoll jeder sicherheitsrelevanten Aktion. Kryptografisch verkettet (Hash-Chain über `sha256`), damit auch ein kompromittierter Agent seine eigenen Spuren nicht nachträglich verwischen kann (siehe Vision, Abschnitt 5.2).
+**Purpose:** Tamper-evident, queryable log of every security-relevant action. Cryptographically chained (hash chain over `sha256`) so that even a compromised agent cannot silently erase its own traces after the fact (see Vision, section 5.2). Tamper-**evident**, not immutable: modification is detectable, but an attacker who can rewrite both the log and its anchor is out of scope.
 
-**Genutzt von:** allen drei Säulen.
+**Used by:** all three pillars.
 
-Platzhalter-Modul ohne Geschäftslogik.
+Placeholder module without business logic.

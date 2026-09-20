@@ -1,118 +1,118 @@
 # RENKER_PLATFORM_AUDIT
 
-- **Datum:** 2026-08-10
-- **Phase:** Phase 2, Schritt 1–2 (Audit + Gap-Report). **Kein Anwendungscode wurde in diesem Schritt geändert.**
-- **Methode:** Quell-Inspektion aller vier Repos (README, Wiki, ADRs, Tests, CI, Manifeste, Quellstruktur, Sicherheits- und Release-Konfiguration). Dokumentation wurde **nicht** mit Implementierung gleichgesetzt.
+- **Date:** 2026-08-10
+- **Phase:** Phase 2, steps 1–2 (audit + gap report). **No application code was changed in this step.**
+- **Method:** Source inspection of all four repos (README, wiki, ADRs, tests, CI, manifests, source structure, security and release configuration). Documentation was **not** equated with implementation.
 
-Legende: **IMPLEMENTED** (Code vorhanden + benutzt) · **PARTIAL** (Teil-Code) · **EXPERIMENTAL** (Prototyp, ausdrücklich unfertig) · **DOC-ONLY** (nur beschrieben) · **PLANNED** (nur Roadmap).
+Legend: **IMPLEMENTED** (code present + used) · **PARTIAL** (partial code) · **EXPERIMENTAL** (prototype, expressly unfinished) · **DOC-ONLY** (only described) · **PLANNED** (roadmap only).
 
 ---
 
-## Portfolio-Map
+## Portfolio map
 
-### renker-core (privat)
+### renker-core (private)
 ```
 renker-core
-├── implemented   : Paketgerüst; 10 importierbare Primitive als Konstanten-Platzhalter;
-│                   crypto_interface als reine Protocol-Typen; CI (ruff+pytest); ein Smoke-Test
-├── tested        : nur Smoke-Test (Import + Konstanten). Keine Logik getestet, weil keine Logik da ist.
+├── implemented   : package scaffold; 10 importable primitives as constant placeholders;
+│                   crypto_interface as pure Protocol types; CI (ruff+pytest); one smoke test
+├── tested        : smoke test only (import + constants). No logic tested, because no logic exists.
 ├── experimental  : —
 └── planned/doc   : Identity, Capabilities, Permissions, Policy, Audit, Events, Memory, Tasks,
-                    Experiments, Evidence, protocol — alle DOC-ONLY (Vision + Wiki), keine Logik
+                    Experiments, Evidence, protocol — all DOC-ONLY (Vision + wiki), no logic
 ```
-**Reifegrad: Skelett.** Der Wert liegt bisher in Struktur und Dokumentation, nicht in Funktion.
+**Maturity: skeleton.** The value so far lies in structure and documentation, not in function.
 
 ### rencora (public) — ACT
 ```
 rencora
-├── implemented   : PyQt6-Desktop-Agent; Tool-Dispatch (agents/router.py); ~25 actions/;
-│                   core/policy.py (Risikostufen 0..6, Bestätigungs-Gate, sicherer Default);
-│                   Prompt-Injection-Trust-Boundary (wrap_external); Audit-Log (core/policy.audit,
-│                   logs/audit.log mit Rotation); Path-Traversal-Schutz (file_controller._is_safe_path,
-│                   Home-Root-basiert); DPAPI-Secret-Verschlüsselung (core/dpapi.py, core/secrets.py);
-│                   verschlüsselte Fernsteuerung (AES-256-GCM), Login-Rate-Limit, Firewall-Pinning
-├── tested        : 7 Sicherheits-Tests: test_permissions, test_filesystem_security,
+├── implemented   : PyQt6 desktop agent; tool dispatch (agents/router.py); ~25 actions/;
+│                   core/policy.py (risk levels 0..6, confirmation gate, safe default);
+│                   prompt-injection trust boundary (wrap_external); audit log (core/policy.audit,
+│                   logs/audit.log with rotation); path-traversal protection (file_controller._is_safe_path,
+│                   home-root-based); DPAPI secret encryption (core/dpapi.py, core/secrets.py);
+│                   encrypted remote control (AES-256-GCM), login rate limit, firewall pinning
+├── tested        : 7 security tests: test_permissions, test_filesystem_security,
 │                   test_audit_rotation, test_desktop_sandbox, test_prompt_boundary,
-│                   test_upload_filename, test_tunnel_integrity; CI build.yml (+ neuer release-windows.yml)
-├── experimental  : RencoraLM v3 Anbindung, Gestensteuerung, proaktive Engine
-└── planned/doc   : feinkörnige, akteurgebundene Capabilities mit Scope/Expiry/Revocation (fehlt)
+│                   test_upload_filename, test_tunnel_integrity; CI build.yml (+ new release-windows.yml)
+├── experimental  : RencoraLM v3 connection, gesture control, proactive engine
+└── planned/doc   : fine-grained, actor-bound capabilities with scope/expiry/revocation (missing)
 ```
-**Reifegrad: das stärkste, produktivnächste Repo.** Sicherheit ist real, getestet und ehrlich dokumentiert.
+**Maturity: the strongest, most production-ready repo.** Security is real, tested, and honestly documented.
 
-### renkervault (public + lokal) — SECURE
+### renkervault (public + local) — SECURE
 ```
 renkervault
-├── implemented   : Tauri-Desktop-Client (TS/React); E2E-Krypto auf @noble/* (primitives, ratchet,
-│                   pq/post-quantum, padding, vault, safety); Node-Relay-Server; Deploy (Caddy/systemd/Tor);
-│                   Inno-Setup-Installer; ausgelieferter Release v0.1.0 (NSIS+MSI)
+├── implemented   : Tauri desktop client (TS/React); E2E crypto on @noble/* (primitives, ratchet,
+│                   pq/post-quantum, padding, vault, safety); Node relay server; deploy (Caddy/systemd/Tor);
+│                   Inno Setup installer; shipped release v0.1.0 (NSIS+MSI)
 ├── tested        : client/tests/security, server/tests/security
-├── experimental  : Prototyp-Status laut README (kein extern auditiertes Produkt)
-└── planned/doc   : versioniertes Protokoll v1, Fuzzing, externes Krypto-Review
+├── experimental  : prototype status per README (not an externally audited product)
+└── planned/doc   : versioned protocol v1, fuzzing, external crypto review
 ```
-**Reifegrad: funktionierender Krypto-Prototyp mit Sicherheits-Schwerpunkt.**
+**Maturity: a working crypto prototype with a security focus.**
 
 ### continuum (public, MIT) — LEARN
 ```
 continuum
-├── implemented   : Phase-0-Forschungspipeline in src/continuum/ (memory, worldmodel, hypothesis,
-│                   learning, verification, eval, safety, llm, data); Demo-Loop-Skript
-├── tested        : 10 Tests (hypothesis, verification, worldmodel, memory_store, eval_metrics,
-│                   governance, consolidation, simulated_lab, speed1); CI ci.yml (ruff+pytest+Demo-Smoke)
-├── experimental  : gesamte „Forschung" läuft gegen eine SIMULIERTE Zielfunktion, nicht echte Hardware
-└── planned/doc   : reale Experimente, unabhängige Reproduktion, validierte Ergebnisse
+├── implemented   : phase-0 research pipeline in src/continuum/ (memory, worldmodel, hypothesis,
+│                   learning, verification, eval, safety, llm, data); demo-loop script
+├── tested        : 10 tests (hypothesis, verification, worldmodel, memory_store, eval_metrics,
+│                   governance, consolidation, simulated_lab, speed1); CI ci.yml (ruff+pytest+demo smoke)
+├── experimental  : the entire "research" runs against a SIMULATED objective function, not real hardware
+└── planned/doc   : real experiments, independent reproduction, validated results
 ```
-**Reifegrad: sauberer, ehrlich als Prototyp markierter Phase-0-Stand.**
+**Maturity: a clean phase-0 state, honestly marked as a prototype.**
 
 ---
 
-## Die 12 Fragen
+## The 12 questions
 
-**1. Was tut jedes Repo heute wirklich?**
-- renker-core: nichts Funktionales — importierbares Gerüst + Doku.
-- rencora: ein lauffähiger Desktop-KI-Agent, der reale Systemaktionen ausführt, mit tool-risikobasierter Freigabe, Trust-Boundary, Audit-Log und Home-Root-Pfadschutz.
-- renkervault: E2E-verschlüsselter Chat-Client + Relay, mit geprüften Krypto-Bibliotheken.
-- continuum: eine reproduzierbare, aber simulierte Forschungs-Lernschleife.
+**1. What does each repo really do today?**
+- renker-core: nothing functional — an importable scaffold + docs.
+- rencora: a runnable desktop AI agent that performs real system actions, with tool-risk-based approval, a trust boundary, an audit log, and home-root path protection.
+- renkervault: an E2E-encrypted chat client + relay, with vetted crypto libraries.
+- continuum: a reproducible but simulated research learning loop.
 
-**2. Stärkste bestehende Funktionalität?**
-rencoras Sicherheitsschicht (`core/policy.py` + die 7 Sicherheits-Tests). Sie ist real, getestet und ehrlich. Sie ist der natürliche Andockpunkt der Plattform-Sicherheit.
+**2. Strongest existing functionality?**
+rencora's security layer (`core/policy.py` + the 7 security tests). It is real, tested, and honest. It is the natural docking point for platform security.
 
-**3. Welche Teile von renker-core sind tatsächlich wiederverwendbar?**
-Aktuell: die **Struktur und Namensgebung** der Primitive und die `crypto_interface`-Protocols. **Kein** Logikcode ist wiederverwendbar, weil keiner existiert. Die Konstanten (`RISK_TIERS`, `APPROVAL_POLICIES`, `CHAIN_HASH_ALGORITHM` …) sind als Vokabular brauchbar.
+**3. Which parts of renker-core are actually reusable?**
+Currently: the **structure and naming** of the primitives and the `crypto_interface` protocols. **No** logic code is reusable, because none exists. The constants (`RISK_TIERS`, `APPROVAL_POLICIES`, `CHAIN_HASH_ALGORITHM` …) are usable as vocabulary.
 
-**4. Welche vorgeschlagenen Core-Abstraktionen sind verfrüht?**
-`memory`, `tasks`, `events`, `experiments`, `evidence`, `protocol` (Wire-Format). Sie lösen heute kein reales Problem von rencora. `capabilities`, `permissions`, `policy`, `audit`, `identity` sind gerechtfertigt, weil rencora genau die feinkörnige, akteurgebundene Autorisierung fehlt.
+**4. Which proposed core abstractions are premature?**
+`memory`, `tasks`, `events`, `experiments`, `evidence`, `protocol` (wire format). They solve no real problem of rencora today. `capabilities`, `permissions`, `policy`, `audit`, `identity` are justified, because rencora lacks exactly the fine-grained, actor-bound authorization.
 
-**5. Architektur-Grenzen?**
-- renker-core: sprach-/prozessneutrales Autorisierungs-Fundament, stdlib-only, **keine** App-Logik, **keine** Krypto-Implementierung.
-- rencora: Ausführung + UI + LLM; konsumiert Autorisierung.
-- renkervault: Transport-/Identitäts-Krypto; einziger Ort für Krypto-Implementierung.
-- continuum: Forschung; isoliert.
+**5. Architecture boundaries?**
+- renker-core: a language/process-neutral authorization foundation, stdlib-only, **no** app logic, **no** crypto implementation.
+- rencora: execution + UI + LLM; consumes authorization.
+- renkervault: transport/identity crypto; the only place for a crypto implementation.
+- continuum: research; isolated.
 
-**6. Welche Repo-Abhängigkeiten sind heute real?**
-Praktisch **keine** Code-Abhängigkeit. Die einzige reale Kopplung ist dokumentarisch (`RENKER_PLATFORM.md`, Wikis).
+**6. Which repo dependencies are real today?**
+Practically **no** code dependency. The only real coupling is documentary (`RENKER_PLATFORM.md`, wikis).
 
-**7. Welche Abhängigkeiten sind nur konzeptionell?**
-renker-core → (rencora/renkervault/continuum): konzeptionell. Der geteilte `protocol`-Layer, gemeinsames Memory/Evidence: konzeptionell.
+**7. Which dependencies are only conceptual?**
+renker-core → (rencora/renkervault/continuum): conceptual. The shared `protocol` layer, shared memory/evidence: conceptual.
 
-**8. Bestehende Sicherheitsannahmen?**
-- rencora: lokaler, vertrauenswürdiger Nutzer; Home-Verzeichnis als grobe Vertrauensgrenze; Tool-Ergebnisse aus externen Quellen sind untrusted; Bestätigung ab Risiko 4; Secrets DPAPI-gebunden.
-- renkervault: Server ist untrusted (Zero-Knowledge-Ziel); Krypto nur aus geprüften Libs.
-- renker-core: bisher keine durchgesetzten Annahmen (kein Enforcement-Code).
+**8. Existing security assumptions?**
+- rencora: a local, trusted user; the home directory as a coarse trust boundary; tool results from external sources are untrusted; confirmation from risk 4 up; secrets DPAPI-bound.
+- renkervault: the server is untrusted (content-blind goal); crypto only from vetted libs.
+- renker-core: no enforced assumptions so far (no enforcement code).
 
-**9. Welche Tests existieren?**
-rencora 7 Sicherheits-Tests; continuum 10 Tests + Demo-Smoke; renkervault client-/server-Security-Suites; renker-core 1 Smoke-Test. CI in allen vieren.
+**9. Which tests exist?**
+rencora 7 security tests; continuum 10 tests + demo smoke; renkervault client/server security suites; renker-core 1 smoke test. CI in all four.
 
-**10. Was fehlt vor Produktionsnutzung?**
-Für die Plattform-Autorisierung: eine echte, getestete Identity→Capability→Policy→Audit-Kette; adversariale Tests (Traversal/Prefix/Expiry/Actor/Op/Target/Revocation/Audit-Integrität); eine reale Integration in genau eine rencora-Aktion; ein ehrliches Threat-Model.
+**10. What is missing before production use?**
+For the platform authorization: a real, tested Identity→Capability→Policy→Audit chain; adversarial tests (traversal/prefix/expiry/actor/op/target/revocation/audit integrity); a real integration into exactly one rencora action; an honest threat model.
 
-**11. Kleinste nützliche Integration renker-core ↔ Rencora?**
-Eine **akteurgebundene, scope-begrenzte Datei-Capability** für **genau eine** Datei-Aktion (Lesen/Schreiben): renker-core identifiziert den Akteur (Agent-Session), prüft die Capability (Pfad-Scope, Ablauf, Widerruf), wertet die Policy aus (ALLOW/DENY/REQUIRE_APPROVAL mit erklärbarem Grund) und schreibt ein strukturiertes Audit-Event — **oberhalb** von rencoras bestehendem Tool-Risiko-Gate, nicht als Ersatz. Least Privilege: „darf nach `~/Documents/drafts/**` schreiben", nicht „hat Dateisystemzugriff".
+**11. Smallest useful integration renker-core ↔ Rencora?**
+An **actor-bound, scope-limited file capability** for **exactly one** file action (read/write): renker-core identifies the actor (agent session), checks the capability (path scope, expiry, revocation), evaluates the policy (ALLOW/DENY/REQUIRE_APPROVAL with an explainable reason), and writes a structured audit event — **above** rencora's existing tool-risk gate, not as a replacement. Least privilege: "may write to `~/Documents/drafts/**`", not "has filesystem access".
 
-**12. Was soll ausdrücklich NOCH NICHT gebaut werden?**
-Memory, Tasks, Events, Experiments, Evidence, das `protocol`-Wire-Format, jede Krypto-Implementierung, REQUIRE_APPROVAL-UI-Flows, verteiltes/serverseitiges Audit, network/browser/camera-Capabilities, Microservices, generische `utils`-Abstraktionen. Ebenfalls nicht: ein Umschreiben von rencoras bestehender `policy.py` oder `file_controller.py`.
+**12. What should explicitly NOT be built yet?**
+Memory, Tasks, Events, Experiments, Evidence, the `protocol` wire format, any crypto implementation, REQUIRE_APPROVAL UI flows, distributed/server-side audit, network/browser/camera capabilities, microservices, generic `utils` abstractions. Also not: a rewrite of rencora's existing `policy.py` or `file_controller.py`.
 
 ---
 
-## Konsequenz für Phase 2
+## Consequence for phase 2
 
-Die erste vertikale Scheibe (Vision-Default) passt zur bestehenden Architektur und wird umgesetzt — **stdlib-only in renker-core**, mit realer Datei-Ausführung im Integrations-Adapter und einer additiven, CI-sicheren Anbindung an rencora. Details: `docs/THREAT_MODEL.md`, `SECURITY_ATTACKS.md`, `PHASE_2_REPORT.md`.
+The first vertical slice (Vision default) fits the existing architecture and is implemented — **stdlib-only in renker-core**, with real file execution in the integration adapter and an additive, CI-safe connection to rencora. Details: `docs/THREAT_MODEL.md`, `SECURITY_ATTACKS.md`, `PHASE_2_REPORT.md`.

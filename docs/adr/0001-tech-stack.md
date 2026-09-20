@@ -1,40 +1,40 @@
-# ADR 0001 — Tech-Stack für renker-core
+# ADR 0001 — Tech stack for renker-core
 
-- **Status:** Akzeptiert
-- **Datum:** 2026-08-10
-- **Entscheider:** Sebastian Renker (Architekt, letzte Instanz)
+- **Status:** Accepted
+- **Date:** 2026-08-10
+- **Decider:** Sebastian Renker (architect, final authority)
 
-## Kontext
+## Context
 
-`renker-core` ist das gemeinsame Fundament für die drei Produktsäulen der Renker-Plattform. Es muss von allen dreien konsumierbar sein, ohne deren Business-Logik zu enthalten. Die Sprachwahl soll die Reibung für die *primären* Konsumenten der ersten Primitive (Identity, Permissions, Audit — Vision, Abschnitt 14) minimieren.
+`renker-core` is the shared foundation for the three product pillars of the Renker platform. It must be consumable by all three without containing their business logic. The language choice should minimize friction for the *primary* consumers of the first primitives (Identity, Permissions, Audit — Vision, section 14).
 
-Ist-Zustand der drei bestehenden Produkt-Repos (verifiziert am 2026-08-10, Details in [`../status/repo-audit.md`](../status/repo-audit.md)):
+Current state of the three existing product repos (verified on 2026-08-10, details in [`../status/repo-audit.md`](../status/repo-audit.md)):
 
-| Repo | Sprache/Stack |
+| Repo | Language/stack |
 |---|---|
 | **rencora** (ACT) | Python (`requirements.txt`, `main.py`, PyInstaller via `main.spec`) |
 | **continuum** (LEARN) | Python (`pyproject.toml`, `src/`) |
-| **renkervault** (SECURE) | TypeScript/React + Tauri (Rust) Client, Node.js Relay-Server |
+| **renkervault** (SECURE) | TypeScript/React + Tauri (Rust) client, Node.js relay server |
 
-Der Stack ist also **nicht** vollständig einheitlich: zwei von drei Repos sind Python, eines ist TypeScript/Rust.
+The stack is therefore **not** fully uniform: two of three repos are Python, one is TypeScript/Rust.
 
-## Entscheidung
+## Decision
 
-**renker-core wird in Python (>=3.10) umgesetzt.**
+**renker-core is implemented in Python (>=3.10).**
 
-Begründung:
+Rationale:
 
-1. **Primäre Konsumenten sind Python.** Die ersten konkret benötigten Primitive (Identity, Permissions, Audit) dienen zuerst Rencora — und Rencora ist Python. Continuum, der zweite große Konsument von Memory/Evidence/Experiments, ist ebenfalls Python.
-2. **Mehrheit + Charakter des Codes.** Zwei der drei Repos sind Python, und es sind genau die agenten- und reasoning-lastigen (ACT, LEARN). Die Vision-Heuristik lautet: „Python, wenn ML-/Agent-Reasoning-Bausteine dominieren" — das trifft hier zu.
-3. **Interoperabilität statt Monosprache.** renker-core definiert produktübergreifend auch ein `protocol/`-Wire-Format. Die eigentliche produktübergreifende Kompatibilität läuft über dieses Format, nicht über eine gemeinsame Implementierungssprache. RenkerVault (TS/Rust) konsumiert die Primitive daher über das Protokoll/Schema, nicht durch direkten Python-Import.
+1. **Primary consumers are Python.** The first concretely needed primitives (Identity, Permissions, Audit) serve Rencora first — and Rencora is Python. Continuum, the second major consumer of Memory/Evidence/Experiments, is also Python.
+2. **Majority + character of the code.** Two of the three repos are Python, and they are exactly the agent- and reasoning-heavy ones (ACT, LEARN). The Vision heuristic is: "Python when ML/agent-reasoning building blocks dominate" — which applies here.
+3. **Interoperability instead of a single language.** renker-core also defines a cross-product `protocol/` wire format. The actual cross-product compatibility runs via this format, not via a shared implementation language. RenkerVault (TS/Rust) therefore consumes the primitives via the protocol/schema, not through a direct Python import.
 
-## Betrachtete Alternativen
+## Alternatives considered
 
-- **TypeScript/Node.js.** Vorteil: RenkerVault ist bereits TS, und die Vision-Heuristik nennt TS für „plattformübergreifende CLI-/Browser-/OS-Automatisierung". Nachteil: Die zwei primären, zuerst zu bedienenden Konsumenten (rencora, continuum) sind Python; ein TS-Core würde für sie eine Sprachgrenze bei jedem Aufruf einziehen. **Abgelehnt**, weil es die Reibung bei den unmittelbaren Meilensteinen erhöht.
-- **Rust.** Vorteil: Nähe zum Tauri-Teil von RenkerVault, starke Sicherheitsgarantien für ein sicherheitskritisches Fundament. Nachteil: höchste Einstiegs- und Iterationskosten in einer Phase, in der schnelle, testgetriebene Iteration zählt; keiner der Python-Konsumenten profitiert direkt. **Zurückgestellt** — bleibt eine Option für ein späteres, eng abgegrenztes `renker-crypto`-Modul.
+- **TypeScript/Node.js.** Advantage: RenkerVault is already TS, and the Vision heuristic names TS for "cross-platform CLI/browser/OS automation". Disadvantage: the two primary consumers to be served first (rencora, continuum) are Python; a TS core would introduce a language boundary for them at every call. **Rejected**, because it increases friction at the immediate milestones.
+- **Rust.** Advantage: proximity to the Tauri part of RenkerVault, strong safety guarantees for a security-critical foundation. Disadvantage: the highest entry and iteration cost in a phase where fast, test-driven iteration matters; none of the Python consumers benefit directly. **Deferred** — remains an option for a later, tightly scoped `renker-crypto` module.
 
-## Konsequenzen
+## Consequences
 
-- **Positiv:** rencora und continuum können renker-core direkt importieren; schnelle Iteration; einheitliches Test-/Lint-Tooling (`pytest`, `ruff`).
-- **Negativ / zu beachten:** RenkerVault kann renker-core nicht direkt importieren. Die produktübergreifende Grenze verläuft über `protocol/` (Wire-Format/Schema). Sobald RenkerVault Primitive direkt braucht, muss entweder ein sprachneutrales Schema (z. B. JSON Schema / Protobuf) oder ein dünner Sprach-Port gepflegt werden.
-- **Krypto bleibt außen vor.** `crypto_interface/` enthält nur Interfaces; die Implementierung bleibt bewusst außerhalb dieses Repos (Vision, Abschnitt 4.3), was die Sprachwahl von renker-core für die Krypto-Sicherheit irrelevant macht.
+- **Positive:** rencora and continuum can import renker-core directly; fast iteration; uniform test/lint tooling (`pytest`, `ruff`).
+- **Negative / to note:** RenkerVault cannot import renker-core directly. The cross-product boundary runs via `protocol/` (wire format/schema). As soon as RenkerVault needs primitives directly, either a language-neutral schema (e.g. JSON Schema / Protobuf) or a thin language port must be maintained.
+- **Crypto stays out.** `crypto_interface/` contains interfaces only; the implementation deliberately stays outside this repo (Vision, section 4.3), which makes renker-core's language choice irrelevant to crypto security.

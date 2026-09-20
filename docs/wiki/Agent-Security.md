@@ -1,28 +1,28 @@
 # Agent Security
 
-Potenziell der wirtschaftlich stärkste kurzfristige Baustein der Plattform.
+Potentially the economically strongest short-term building block of the platform.
 
-## Das Kernproblem
+## The core problem
 
-KI-Agenten bekommen immer mehr Berechtigungen. Was passiert, wenn ein Agent manipuliert wird?
+AI agents are getting more and more permissions. What happens when an agent is manipulated?
 
 ```
 Website → Prompt Injection → AI Agent → Tool Call → "Upload ~/.ssh/"
 ```
 
-## Die Antwort: Capability Security
+## The answer: capability security
 
-Kein Akteur besitzt pauschale Rechte. Jede Fähigkeit ist ein einzeln erteiltes, einzeln widerrufbares Objekt mit sechs Eigenschaften: **Permission, Scope, Lifetime, Audit Trail, Approval Policy, Revocation.**
+No actor holds blanket rights. Every capability is an individually granted, individually revocable object with six properties: **Permission, Scope, Lifetime, Audit Trail, Approval Policy, Revocation.**
 
-Der Fluss jeder Aktion:
+The flow of every action:
 
 ```
 REQUEST → POLICY ENGINE → Risk Assessment → Permission → Sandbox → Execution → Audit
 ```
 
-Bei gefährlichen Aktionen: `HIGH RISK → DENY` oder `→ HUMAN APPROVAL`.
+For dangerous actions: `HIGH RISK → DENY` or `→ HUMAN APPROVAL`.
 
-## Permission-Objekt (Skizze)
+## Permission object (sketch)
 
 ```json
 {
@@ -39,7 +39,7 @@ Bei gefährlichen Aktionen: `HIGH RISK → DENY` oder `→ HUMAN APPROVAL`.
 }
 ```
 
-## Audit-Log-Eintrag (Skizze)
+## Audit-log entry (sketch)
 
 ```json
 {
@@ -56,15 +56,15 @@ Bei gefährlichen Aktionen: `HIGH RISK → DENY` oder `→ HUMAN APPROVAL`.
 }
 ```
 
-Das Log ist **append-only** und kryptografisch verkettet (Hash-Chain), damit auch ein kompromittierter Agent seine Spuren nicht verwischen kann.
+The log is **append-only** and cryptographically chained (hash chain), so that even a compromised agent cannot erase its traces (tamper-evident).
 
-## Risikostufen (Grundlage der Policy Engine)
+## Risk levels (basis of the policy engine)
 
-| Stufe | Beispiele | Standard |
+| Level | Examples | Default |
 |---|---|---|
-| **Niedrig** | Lesen im Scope, Web-Recherche in Allowlist | auto erlaubt, protokolliert |
-| **Mittel** | Schreiben außerhalb bekannter Scopes, neue Domain | erlaubt mit Warnung / Freigabe nach Policy |
-| **Hoch** | Zugangsdaten/Schlüssel, Löschen, Zahlungen | menschliche Freigabe |
-| **Kritisch** | `.ssh`, Produktions-DB, irreversibles Löschen | verweigert, nur mit explizitem Override |
+| **Low** | Reading in scope, web research in an allowlist | auto allowed, logged |
+| **Medium** | Writing outside known scopes, a new domain | allowed with a warning / approval per policy |
+| **High** | Credentials/keys, deletion, payments | human approval |
+| **Critical** | `.ssh`, production DB, irreversible deletion | denied, only with an explicit override |
 
-Daraus kann ein eigenständiges Produkt werden: **Renker Agent Security** — *Security layer for autonomous AI agents*. Der Business Case ist der **vermiedene Schaden**, unmittelbar in Euro messbar.
+This can become a standalone product: **Renker Agent Security** — *security layer for autonomous AI agents*. The business case is the **damage avoided**, immediately measurable in euros.

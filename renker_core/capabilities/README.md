@@ -1,11 +1,11 @@
 # capabilities
 
-**Primitiv:** Capabilities
+**Primitive:** Capabilities
 
-**Zweck:** Definition und Schema einzeln erteilbarer, einzeln widerrufbarer Handlungsberechtigungen. Jede Capability trägt sechs Eigenschaften: Permission, Scope, Lifetime, Audit Trail, Approval Policy und Revocation (siehe `RENKER_VISION.md`, Abschnitt 3.1).
+**Purpose:** Definition and schema of individually grantable, individually revocable action permissions. Each capability carries six properties: Permission, Scope, Lifetime, Audit Trail, Approval Policy, and Revocation (see `RENKER_VISION.md`, section 3.1).
 
-**Genutzt von:** primär Rencora; Continuum für Tool-Zugriffe.
+**Used by:** primarily Rencora; Continuum for tool access.
 
-> Sicherheitsrelevantes Modul. Änderungen hier durchlaufen den Builder→Attacker→Reviewer-Zyklus aus `CONTRIBUTING.md`.
+> Security-relevant module. Changes here go through the Builder→Attacker→Reviewer cycle from `CONTRIBUTING.md`.
 
-Platzhalter-Modul ohne Geschäftslogik. Die Umsetzung des Permission-Objekts (Abschnitt 5.1 der Vision) ist der nächste Implementierungsschritt.
+Placeholder module without business logic. Implementing the Permission object (section 5.1 of the Vision) is the next implementation step.

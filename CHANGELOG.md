@@ -44,3 +44,8 @@ All notable changes to this project are documented here, following
   `selfproof bench report`. No number is invented: percentages come only from
   benchmark files, unmeasured runs are never counted as zero, and below n=5 the
   report shows `insufficient data`. No real runs are recorded yet.
+- Phase 5 (dashboard): `selfproof.dashboard` reads the ledger, git and the
+  benchmarks and renders a self-contained (no-CDN), dark, accessible HTML export
+  and a terminal summary. `selfproof dashboard show` / `dashboard export --out`.
+  A test guarantees the export leaks no file paths, usernames or raw ledger
+  hashes.

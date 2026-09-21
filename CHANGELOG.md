@@ -20,3 +20,6 @@ All notable changes to this project are documented here, following
   `self-hosted` via `selfproof.toml`.
 - Private holdout repository `renker-industries/selfproof-holdout` (A9) with the
   anti-gaming contract.
+- Phase 2 gates (batch A): `slop` (AST/text heuristics), `architecture`
+  (layering, cycles, size budgets, dependency ADRs) and `test_weakening`
+  (diff-based), each with a corpus/tests and a gate reference.

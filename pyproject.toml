@@ -28,7 +28,8 @@ include = ["selfproof*", "renker_core*"]
 [tool.ruff]
 line-length = 100
 target-version = "py311"
-extend-exclude = ["src/renker_core"]
+# Exclude the imported kernel and the intentionally-broken gate corpora/fixtures.
+extend-exclude = ["src/renker_core", "tests/corpus", "tests/fixtures"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]

@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "selfproof"
+version = "0.0.0"
+description = "Provider-neutral platform that proves AI-written code and builds itself through its own gates"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Sebastian Renker" }]
+# Zero runtime dependencies by design. Any future runtime dependency needs an
+# ADR line (why, license, maintainer, pinned version) and passes the
+# architecture gate's registry check. The kernel `renker_core` stays zero-dep.
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6", "mypy>=1.8", "hypothesis>=6"]
+
+[project.scripts]
+selfproof = "selfproof.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["selfproof*", "renker_core*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = ["src/renker_core"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_unused_ignores = true
+exclude = ["src/renker_core/"]
+
+[tool.pytest.ini_options]
+# Kernel tests run unchanged from the imported subtree; Selfproof tests live in tests/.
+testpaths = ["tests", "src/renker_core/tests"]
+pythonpath = ["src", "src/renker_core"]

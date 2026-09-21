@@ -1,0 +1,17 @@
+# Changelog
+
+All notable changes to this project are documented here, following
+[Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+
+## [Unreleased]
+
+### Added
+- Seed of the platform (Phase 1): repository, Apache-2.0 license and NOTICE,
+  SECURITY policy, autonomy charter, and the concept under `docs/`.
+- Imported `renker-core` kernel with full history into `src/renker_core/`
+  (132 kernel tests green, unchanged).
+- Evidence ledger built on the kernel audit chain (`selfproof.core.ledger`).
+- Gate runner and the `language` and `proof` gates, each with a corpus.
+- `selfproof` CLI: `status`, `build`, `ledger verify`, `autopilot`.
+- CI workflow (verify-only, read-only token) and documentation skeleton
+  (ADR-0001 name, ADR-0002 inventory, ADR-0003 scouting, gate references).

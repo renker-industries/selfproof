@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Pre-push: run all gates and verify the ledger. Blocks a push on any FAIL/ERROR.
+set -euo pipefail
+case "$(uname -s)" in
+  MINGW*|MSYS*|CYGWIN*) SEP=';' ;;
+  *) SEP=':' ;;
+esac
+export PYTHONPATH="src${SEP}src/renker_core"
+python -m selfproof.cli build
+python -m selfproof.cli ledger verify

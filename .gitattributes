@@ -1,0 +1,5 @@
+# Normalize line endings to LF in the repository. Hook scripts must be LF or
+# the bash shebang breaks on checkout.
+* text=auto eol=lf
+hooks/* text eol=lf
+*.sh text eol=lf

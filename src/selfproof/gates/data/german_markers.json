@@ -1,0 +1,41 @@
+{
+  "chars": [
+    "\u00e4",
+    "\u00f6",
+    "\u00fc",
+    "\u00df",
+    "\u00c4",
+    "\u00d6",
+    "\u00dc"
+  ],
+  "stopwords": [
+    "der",
+    "die",
+    "das",
+    "und",
+    "nicht",
+    "ist",
+    "mit",
+    "ein",
+    "eine",
+    "auch",
+    "oder",
+    "von",
+    "werden",
+    "wird",
+    "sind",
+    "wenn",
+    "sich",
+    "auf",
+    "f\u00fcr",
+    "\u00fcber",
+    "kann",
+    "muss",
+    "soll",
+    "keine",
+    "nur",
+    "aber",
+    "dann"
+  ],
+  "note": "German-language markers used by the language gate. This file is data, not prose, and is excluded from the language gate itself."
+}

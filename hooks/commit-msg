@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Reject commits without a Built-by trailer (honest self-built metric, W10).
+set -euo pipefail
+msg_file="$1"
+if ! grep -qiE '^Built-by:[[:space:]]*(human|agent[[:space:]]+.+)$' "$msg_file"; then
+  echo "commit-msg hook: missing 'Built-by: human' or 'Built-by: agent <name> <version>' trailer." >&2
+  exit 1
+fi

@@ -1,0 +1,14 @@
+# Protected paths (concept 2.3). Changes here are Tier B: they need a signed
+# human approval. As a solo maintainer, @sebastianrenker owns everything.
+* @sebastianrenker
+
+# Explicit protected paths for visibility:
+/src/renker_core/ @sebastianrenker
+/src/selfproof/gates/ @sebastianrenker
+/src/selfproof/core/ @sebastianrenker
+/rules/ @sebastianrenker
+/.github/ @sebastianrenker
+/LICENSE @sebastianrenker
+/SECURITY.md @sebastianrenker
+/AUTONOMY_CHARTER.md @sebastianrenker
+/CODEOWNERS @sebastianrenker

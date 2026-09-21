@@ -27,3 +27,7 @@ All notable changes to this project are documented here, following
   gate references, CLI reference) and `docs_claims` (no absolute claims,
   labelled numbers), plus `scripts/gen_cli_reference.py` and the generated
   `docs/reference/cli.md`. All seven gates pass on the repo.
+- Phase 2 gate (batch C): `security` — built-in secret scan, license check and
+  workflow hardening check, augmented by gitleaks/osv-scanner/zizmor when
+  installed. All eight gates now exist (`security` reports SKIPPED until the
+  external scanners are installed — a missing tool is never a pass).

@@ -23,3 +23,7 @@ All notable changes to this project are documented here, following
 - Phase 2 gates (batch A): `slop` (AST/text heuristics), `architecture`
   (layering, cycles, size budgets, dependency ADRs) and `test_weakening`
   (diff-based), each with a corpus/tests and a gate reference.
+- Phase 2 gates (batch B): `docs_coverage` (docstrings, per-directory READMEs,
+  gate references, CLI reference) and `docs_claims` (no absolute claims,
+  labelled numbers), plus `scripts/gen_cli_reference.py` and the generated
+  `docs/reference/cli.md`. All seven gates pass on the repo.

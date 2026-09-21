@@ -1,0 +1,20 @@
+# Source of truth for the per-agent rules files.
+# CLAUDE.md, AGENTS.md and GEMINI.md are GENERATED from this file.
+# Edit here, then run: PYTHONPATH=src python scripts/gen_agent_rules.py
+title: Selfproof agent rules
+intro: These rules are generated from rules/agents.yaml. Do not edit the generated files by hand; edit the source and regenerate.
+rules:
+  - id: english-only
+    text: All files, comments, commit messages and documentation are in English. The only exception is tests/fixtures/non_english/.
+  - id: evidence-or-planned
+    text: Every done, correct or secure statement is bound to an executed check on the exact commit, or is labelled planned.
+  - id: no-absolute-claims
+    text: Never write absolutely secure, unhackable, guaranteed or bug-free. The strongest allowed form is zero known findings at a commit per named tools on a date.
+  - id: skipped-is-not-passed
+    text: A missing tool, no network or a timeout is SKIPPED or ERROR, never PASS.
+  - id: branch-and-pr
+    text: After the first commit, never push to main. Small pull requests, one concern each, with a Built-by trailer.
+  - id: protected-paths
+    text: Changes under src/renker_core, src/selfproof/gates, src/selfproof/core, rules, .github, LICENSE, SECURITY.md and CODEOWNERS need a signed human approval.
+  - id: no-weakening
+    text: Never weaken or delete a gate, test or threshold to make something pass. That is refused.

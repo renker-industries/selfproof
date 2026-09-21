@@ -19,6 +19,7 @@ from pathlib import Path
 
 from .core.config import load_config
 from .core.ledger import Ledger, LedgerError
+from .core.rules import check_generated, write_generated
 from .core.runner import run_gates
 
 
@@ -75,6 +76,23 @@ def _cmd_ledger_verify(_: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_rules_generate(_: argparse.Namespace) -> int:
+    for name in write_generated(_repo_root()):
+        print(f"wrote {name}")
+    return 0
+
+
+def _cmd_rules_check(_: argparse.Namespace) -> int:
+    drift = check_generated(_repo_root())
+    if drift:
+        for line in drift:
+            print(line)
+        print("\nRESULT: generated rules files are out of date")
+        return 1
+    print("rules OK: CLAUDE.md, AGENTS.md and GEMINI.md match rules/agents.yaml")
+    return 0
+
+
 def _cmd_autopilot(args: argparse.Namespace) -> int:
     root = _repo_root()
     stop = root / ".selfproof" / "STOP"
@@ -101,6 +119,13 @@ def build_parser() -> argparse.ArgumentParser:
     ledger_sub = p_ledger.add_subparsers(dest="ledger_command", required=True)
     p_verify = ledger_sub.add_parser("verify", help="recompute the evidence hash chain")
     p_verify.set_defaults(func=_cmd_ledger_verify)
+
+    p_rules = sub.add_parser("rules", help="generate or check the per-agent rules files")
+    rules_sub = p_rules.add_subparsers(dest="rules_command", required=True)
+    p_rules_gen = rules_sub.add_parser("generate", help="write CLAUDE.md, AGENTS.md, GEMINI.md")
+    p_rules_gen.set_defaults(func=_cmd_rules_generate)
+    p_rules_check = rules_sub.add_parser("check", help="fail if a generated rules file is stale")
+    p_rules_check.set_defaults(func=_cmd_rules_check)
 
     p_auto = sub.add_parser("autopilot", help="run one gate cycle, honoring the kill switch")
     p_auto.add_argument("--gates", default="", help="comma-separated gate names (default: all)")

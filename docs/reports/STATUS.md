@@ -2,7 +2,8 @@
 
 - Generated: 2026-09-21 (build session)
 - Stage: `self-hosted` (cutover tag `self-host-v0`)
-- Phase: 2 (All gates) — complete; entering Phase 3 (Adapters)
+- Phase: 3 (Adapters) — registry + capability matrix done; rules-format
+  generation still to do. Then Phase 4 (Token module).
 - Mode: full autopilot; A3 (relicense) and A4 (publish) gated at execution.
 
 ## Done (with evidence)
@@ -18,10 +19,16 @@
   - Local run: 7 gates PASS, `security` SKIPPED (external scanners not installed
     — honest, not a pass). 38 Selfproof tests + 132 kernel tests pass; ruff clean.
 
-## Partial / next (Phase 3)
-- Adapters with honest capability levels (L0/L1/L2): `git` (L1, exists as hooks),
-  then `claude_code`, `codex`, `gemini_cli`, `cursor`, `aider`, `ollama`.
-- A generated capability matrix under `docs/reference/capability-matrix.md`.
+## Done since (Phase 3, PR #7)
+- Adapter registry with honest levels: `git` L1; `claude_code`, `codex`,
+  `gemini_cli`, `cursor`, `aider` L1; `ollama` L0. No L2 claimed (no native hook
+  wired). Generated `docs/reference/capability-matrix.md`.
+
+## Next (finish Phase 3, then Phase 4)
+- Rules-as-data under `rules/*.yaml` + generators for `CLAUDE.md`/`AGENTS.md`/
+  `GEMINI.md`, with a freshness check (stale/hand-edited generated file fails).
+- Phase 4 token module: `selfproof bench` with control runs; only measured net
+  values shown.
 
 ## Blocked (by design or plan)
 - A3/A4 wait for a live owner OK.

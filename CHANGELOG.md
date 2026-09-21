@@ -15,3 +15,8 @@ All notable changes to this project are documented here, following
 - `selfproof` CLI: `status`, `build`, `ledger verify`, `autopilot`.
 - CI workflow (verify-only, read-only token) and documentation skeleton
   (ADR-0001 name, ADR-0002 inventory, ADR-0003 scouting, gate references).
+- Cutover to the self-hosted stage (`self-host-v0`): CI ran the platform on a
+  deliberately-bad PR and the language gate blocked it; stage set to
+  `self-hosted` via `selfproof.toml`.
+- Private holdout repository `renker-industries/selfproof-holdout` (A9) with the
+  anti-gaming contract.

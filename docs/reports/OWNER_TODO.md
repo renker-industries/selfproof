@@ -21,11 +21,17 @@ recommended default; work that does not depend on it continues.
   not just the two in scope. Recommended: create a fine-grained token limited to
   `renker-industries/selfproof` and `-holdout`. Residual risk until then: broad
   write access. (Can only be done in the GitHub web UI.)
-- [ ] **Branch protection / ruleset.** Enable on `main`: require the `ci` check,
-  require PRs, linear history, block force-push/deletion. Solo-maintainer note in
-  `SECURITY.md` applies.
-- [ ] **Repo security features.** Enable secret scanning + push protection,
-  Dependabot alerts/updates, code scanning, private vulnerability reporting.
+- [ ] **Branch protection / ruleset — BLOCKED by plan.** Both branch protection
+  and repository rulesets return HTTP 403 "Upgrade to GitHub Pro or make this
+  repository public" for this private repo. Until the repo is public (A4) or the
+  account is on Pro/Team, `main` cannot be protected server-side; enforcement
+  relies on the local git hooks + a red CI run. Applied intent (to set once
+  available): require the `gates` check, require PRs, linear history, block
+  force-push/deletion, no admin bypass, 0 required approvals (solo-maintainer).
+- [ ] **Secret scanning — BLOCKED by plan.** HTTP 422 "not available for this
+  repository" (needs GitHub Advanced Security / public). Dependabot alerts and
+  automated security fixes ARE enabled. Enable code scanning and secret scanning
+  when the plan allows or on publication.
 - [ ] **Passkey/2FA** on both accounts and minimal org member permissions.
 - [ ] **First wiki page.** GitHub creates `<repo>.wiki.git` only after the first
   page is created in the web UI (Phase 6).

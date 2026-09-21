@@ -1,0 +1,3 @@
+# Selfproof runtime configuration.
+# Stage flipped to self-hosted at the self-host-v0 cutover.
+stage = "self-hosted"

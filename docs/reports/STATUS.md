@@ -1,8 +1,8 @@
 # Status
 
 - Generated: 2026-09-21 (build session)
-- Stage: `seed`
-- Phase: 1 (Seed) — in progress
+- Stage: `self-hosted` (cutover tag `self-host-v0`)
+- Phase: 1 (Seed) — complete; entering Phase 2
 - Mode: full autopilot; A3 (relicense) and A4 (publish) gated at execution.
 
 ## Done (with evidence)
@@ -20,16 +20,20 @@
 - Docs skeleton, PR/issue templates, CODEOWNERS, CONTRIBUTING, CHANGELOG, CI
   (verify-only), git hooks.
 
-## Partial / next
-- Create the private repo `renker-industries/selfproof` and push the seed.
-- Apply repository hardening (branch protection, secret scanning) — some steps
-  are owner-manual (see OWNER_TODO).
-- Cutover: land a deliberately-bad PR and confirm CI blocks it → tag
-  `self-host-v0`.
-- Create the private holdout repo `renker-industries/selfproof-holdout` (A9).
+## Done since (Phase 1 completion)
+- Private repo `renker-industries/selfproof` created and seed pushed; seed CI green.
+- Hardening applied where the plan allows: workflow token read-only, Dependabot
+  alerts + automated fixes on. Branch protection, rulesets and secret scanning
+  are **blocked by the free plan for a private repo** (see OWNER_TODO);
+  enforcement relies on hooks + red CI until publication or a plan upgrade.
+- Cutover done: PR #1 (deliberately-bad German file) was blocked by the language
+  gate in CI; PR closed unmerged; tag `self-host-v0` pushed.
+- Private holdout repo `renker-industries/selfproof-holdout` (A9) created with
+  the anti-gaming contract.
 
 ## Blocked
 - A3/A4 wait for a live owner OK (by design).
+- Server-side branch protection / secret scanning wait on plan or A4.
 
 ## Metrics snapshot
 - Kernel tests: 132 passed. Selfproof tests: 11 passed. ruff: clean.

@@ -13,6 +13,7 @@ from .docs_claims import DocsClaimsGate
 from .docs_coverage import DocsCoverageGate
 from .language import LanguageGate
 from .proof import ProofGate
+from .security import SecurityGate
 from .slop import SlopGate
 from .test_weakening import TestWeakeningGate
 
@@ -24,6 +25,7 @@ GATES: dict[str, type[Gate]] = {
     TestWeakeningGate.name: TestWeakeningGate,
     DocsCoverageGate.name: DocsCoverageGate,
     DocsClaimsGate.name: DocsClaimsGate,
+    SecurityGate.name: SecurityGate,
 }
 
 __all__ = ["Gate", "GateContext", "GateResult", "Verdict", "GATES"]

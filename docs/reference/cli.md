@@ -30,6 +30,13 @@ usage: selfproof rules [-h] {generate,check} ...
 - `-h, --help`: show this help message and exit
 - `rules_command`: 
 
+## `selfproof dashboard`
+
+usage: selfproof dashboard [-h] {show,export} ...
+
+- `-h, --help`: show this help message and exit
+- `dashboard_command`: 
+
 ## `selfproof bench`
 
 usage: selfproof bench [-h] {report} ...

@@ -15,7 +15,9 @@ The checks. Each gate returns exactly one of `PASS`, `FAIL`, `SKIPPED(reason)`,
 | `slop` | phase 2 | `docs/reference/gates/slop.md` |
 | `architecture` | phase 2 | `docs/reference/gates/architecture.md` |
 | `test_weakening` | phase 2 | `docs/reference/gates/test_weakening.md` |
-| `security`, `docs_claims`, `docs_coverage` | planned (phase 2) | — |
+| `docs_coverage` | phase 2 | `docs/reference/gates/docs_coverage.md` |
+| `docs_claims` | phase 2 | `docs/reference/gates/docs_claims.md` |
+| `security` | planned (phase 2) | — |
 
 Marker data for the `language` gate lives in `data/` and is excluded from the
 language scan itself.

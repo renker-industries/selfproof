@@ -9,6 +9,8 @@ from __future__ import annotations
 
 from .architecture import ArchitectureGate
 from .base import Gate, GateContext, GateResult, Verdict
+from .docs_claims import DocsClaimsGate
+from .docs_coverage import DocsCoverageGate
 from .language import LanguageGate
 from .proof import ProofGate
 from .slop import SlopGate
@@ -20,6 +22,8 @@ GATES: dict[str, type[Gate]] = {
     SlopGate.name: SlopGate,
     ArchitectureGate.name: ArchitectureGate,
     TestWeakeningGate.name: TestWeakeningGate,
+    DocsCoverageGate.name: DocsCoverageGate,
+    DocsClaimsGate.name: DocsClaimsGate,
 }
 
 __all__ = ["Gate", "GateContext", "GateResult", "Verdict", "GATES"]

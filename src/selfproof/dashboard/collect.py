@@ -30,6 +30,7 @@ class DashboardData:
     human_commits: int
     bench_status: str
     bench_summary: str
+    bench_percent: float | None = None
     generated: str = ""
     warnings: list[str] = field(default_factory=list)
 
@@ -70,6 +71,7 @@ def collect(repo_root: str | Path) -> DashboardData:
         human_commits=human,
         bench_status=bench.status,
         bench_summary=_bench_line(bench),
+        bench_percent=bench.net_percent,
         warnings=warnings,
     )
 

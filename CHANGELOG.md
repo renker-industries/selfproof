@@ -49,3 +49,9 @@ All notable changes to this project are documented here, following
   and a terminal summary. `selfproof dashboard show` / `dashboard export --out`.
   A test guarantees the export leaks no file paths, usernames or raw ledger
   hashes.
+- Dashboard redesign: a crafted single-file UI — restrained dark theme with a
+  light-mode fallback, clear type hierarchy, tabular numerals, inline-SVG gate
+  bars, and an embedded web app manifest so it installs via "Add to Home Screen"
+  on phones and desktops (no service worker, so it stays script-free). New
+  `selfproof dashboard open` builds and opens it in the default browser
+  (Windows/macOS/Linux).

@@ -30,6 +30,13 @@ usage: selfproof rules [-h] {generate,check} ...
 - `-h, --help`: show this help message and exit
 - `rules_command`: 
 
+## `selfproof bench`
+
+usage: selfproof bench [-h] {report} ...
+
+- `-h, --help`: show this help message and exit
+- `bench_command`: 
+
 ## `selfproof autopilot`
 
 usage: selfproof autopilot [-h] [--gates GATES]

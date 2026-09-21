@@ -39,3 +39,8 @@ All notable changes to this project are documented here, following
   `AGENTS.md` and `GEMINI.md` are generated from it (`scripts/gen_agent_rules.py`,
   `selfproof rules generate`). `selfproof rules check` fails on drift and runs in
   CI, so a stale or hand-edited generated file is caught.
+- Phase 4 (token module): `selfproof.tokens` measures the net token saving
+  (`baseline - actual - overhead`) from paired benchmark runs, with
+  `selfproof bench report`. No number is invented: percentages come only from
+  benchmark files, unmeasured runs are never counted as zero, and below n=5 the
+  report shows `insufficient data`. No real runs are recorded yet.

@@ -35,3 +35,7 @@ All notable changes to this project are documented here, following
   (`git` L1, `claude_code`/`codex`/`gemini_cli`/`cursor`/`aider` L1, `ollama`
   L0). No L2 is claimed yet (no native session hook is wired). Adds
   `scripts/gen_capability_matrix.py` and the generated capability matrix.
+- Phase 3 (rules format): `rules/agents.yaml` is the single source; `CLAUDE.md`,
+  `AGENTS.md` and `GEMINI.md` are generated from it (`scripts/gen_agent_rules.py`,
+  `selfproof rules generate`). `selfproof rules check` fails on drift and runs in
+  CI, so a stale or hand-edited generated file is caught.

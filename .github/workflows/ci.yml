@@ -35,6 +35,11 @@ jobs:
           PYTHONPATH: src:src/renker_core
         run: python -m pytest -q
 
+      - name: Check generated rules files are current
+        env:
+          PYTHONPATH: src:src/renker_core
+        run: python -m selfproof.cli rules check
+
       - name: Run gates (proof + language) and record evidence
         env:
           PYTHONPATH: src:src/renker_core

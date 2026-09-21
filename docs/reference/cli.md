@@ -23,6 +23,13 @@ usage: selfproof ledger [-h] {verify} ...
 - `-h, --help`: show this help message and exit
 - `ledger_command`: 
 
+## `selfproof rules`
+
+usage: selfproof rules [-h] {generate,check} ...
+
+- `-h, --help`: show this help message and exit
+- `rules_command`: 
+
 ## `selfproof autopilot`
 
 usage: selfproof autopilot [-h] [--gates GATES]

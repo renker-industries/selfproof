@@ -2,9 +2,11 @@
 
 - Generated: 2026-09-21 (build session)
 - Stage: `self-hosted` (cutover tag `self-host-v0`)
-- Phase: 3 (Adapters) — registry + capability matrix done; rules-format
-  generation still to do. Then Phase 4 (Token module).
+- Phase: 5 (Dashboard) done. Phases 0-5 complete. Next: Phase 6 (docs/wiki/
+  README), Phase 7 (fleet mode), Phase 8 (hardening + release v0.1.0).
 - Mode: full autopilot; A3 (relicense) and A4 (publish) gated at execution.
+- Merged PRs through the loop: #2-#11 (plus the seed). 56 selfproof tests +
+  132 kernel tests pass; ruff clean; 7 gates PASS + security SKIPPED.
 
 ## Done (with evidence)
 - **Phase 0/0b**: environment, inventory (ADR-0002), name check (ADR-0001),
@@ -19,16 +21,23 @@
   - Local run: 7 gates PASS, `security` SKIPPED (external scanners not installed
     — honest, not a pass). 38 Selfproof tests + 132 kernel tests pass; ruff clean.
 
-## Done since (Phase 3, PR #7)
-- Adapter registry with honest levels: `git` L1; `claude_code`, `codex`,
-  `gemini_cli`, `cursor`, `aider` L1; `ollama` L0. No L2 claimed (no native hook
-  wired). Generated `docs/reference/capability-matrix.md`.
+## Done since (Phases 3-5)
+- Phase 3: adapter registry + honest capability matrix (PR #7); rules-as-data
+  `rules/agents.yaml` generating `CLAUDE.md`/`AGENTS.md`/`GEMINI.md` with a CI
+  drift check (`selfproof rules check`, PR #9).
+- Phase 4: token module — net-saving measurement + `selfproof bench report`;
+  no invented numbers, `insufficient data` below n=5 (PR #10).
+- Phase 5: dashboard — self-contained HTML export + terminal summary, reads
+  only the ledger/git/benchmarks, export-privacy test (PR #11).
 
-## Next (finish Phase 3, then Phase 4)
-- Rules-as-data under `rules/*.yaml` + generators for `CLAUDE.md`/`AGENTS.md`/
-  `GEMINI.md`, with a freshness check (stale/hand-edited generated file fails).
-- Phase 4 token module: `selfproof bench` with control runs; only measured net
-  values shown.
+## Next (Phase 6-8)
+- Phase 6: the wiki source set, README quickstart/comparison, explanation pages;
+  pass docs_coverage/docs_claims/readability.
+- Phase 7: fleet mode — scan both GitHub accounts; findings count only with
+  before+after entries.
+- Phase 8: install the external security scanners (turn `security` from SKIPPED
+  to PASS), SBOM/provenance, Scorecard, release `v0.1.0` (private; public only
+  if A4 + readiness check pass).
 
 ## Blocked (by design or plan)
 - A3/A4 wait for a live owner OK.

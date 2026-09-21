@@ -31,3 +31,7 @@ All notable changes to this project are documented here, following
   workflow hardening check, augmented by gitleaks/osv-scanner/zizmor when
   installed. All eight gates now exist (`security` reports SKIPPED until the
   external scanners are installed — a missing tool is never a pass).
+- Phase 3 (adapters): the adapter registry with honest capability levels
+  (`git` L1, `claude_code`/`codex`/`gemini_cli`/`cursor`/`aider` L1, `ollama`
+  L0). No L2 is claimed yet (no native session hook is wired). Adds
+  `scripts/gen_capability_matrix.py` and the generated capability matrix.

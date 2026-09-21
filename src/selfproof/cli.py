@@ -21,6 +21,7 @@ from .core.config import load_config
 from .core.ledger import Ledger, LedgerError
 from .core.rules import check_generated, write_generated
 from .core.runner import run_gates
+from .tokens import aggregate, load_records, report
 
 
 def _repo_root() -> Path:
@@ -93,6 +94,12 @@ def _cmd_rules_check(_: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_bench_report(_: argparse.Namespace) -> int:
+    stats = aggregate(load_records(_repo_root() / "docs" / "reports" / "benchmarks"))
+    print(report(stats))
+    return 0
+
+
 def _cmd_autopilot(args: argparse.Namespace) -> int:
     root = _repo_root()
     stop = root / ".selfproof" / "STOP"
@@ -126,6 +133,11 @@ def build_parser() -> argparse.ArgumentParser:
     p_rules_gen.set_defaults(func=_cmd_rules_generate)
     p_rules_check = rules_sub.add_parser("check", help="fail if a generated rules file is stale")
     p_rules_check.set_defaults(func=_cmd_rules_check)
+
+    p_bench = sub.add_parser("bench", help="token benchmark operations")
+    bench_sub = p_bench.add_subparsers(dest="bench_command", required=True)
+    p_bench_report = bench_sub.add_parser("report", help="report net token saving from benchmarks")
+    p_bench_report.set_defaults(func=_cmd_bench_report)
 
     p_auto = sub.add_parser("autopilot", help="run one gate cycle, honoring the kill switch")
     p_auto.add_argument("--gates", default="", help="comma-separated gate names (default: all)")

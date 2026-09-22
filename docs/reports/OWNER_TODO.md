@@ -45,5 +45,16 @@ recommended default; work that does not depend on it continues.
 - [ ] Archive the old repos after migration (charter A5 = NO).
 - [ ] Agent order for adapters (default: Claude Code, Codex, then the rest).
 
+## Release follow-ups (for publication / full v0.1.0)
+- [ ] **Populate the holdout** (`renker-industries/selfproof-holdout`) from a
+  session that is not the builder, so improvement cycles resist overfitting. The
+  builder must never read these cases. Until then, Phase 9's "≥3 proven cycles on
+  the holdout" is pending.
+- [ ] **Install the external scanners in CI** (gitleaks, osv-scanner, zizmor) so
+  the `security` gate runs them for real, and run a full-history secret scan
+  before any publication.
+
 ## Hardening follow-ups
 - [ ] Pin GitHub Actions by full commit SHA (currently tag-pinned in `ci.yml`).
+  Note: `zizmor` will flag unpinned actions, so do this before wiring zizmor into
+  CI.

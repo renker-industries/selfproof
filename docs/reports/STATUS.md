@@ -2,11 +2,11 @@
 
 - Generated: 2026-09-21 (build session)
 - Stage: `self-hosted` (cutover tag `self-host-v0`)
-- Phase: 5 (Dashboard) done. Phases 0-5 complete. Next: Phase 6 (docs/wiki/
-  README), Phase 7 (fleet mode), Phase 8 (hardening + release v0.1.0).
+- Phase: 8 done — `v0.1.0` (private). Phases 0-8 complete; Phase 9 (improvement)
+  pending a non-builder-populated holdout (see the build report).
 - Mode: full autopilot; A3 (relicense) and A4 (publish) gated at execution.
-- Merged PRs through the loop: #2-#11 (plus the seed). 56 selfproof tests +
-  132 kernel tests pass; ruff clean; 7 gates PASS + security SKIPPED.
+- Merged PRs through the loop: #2-#17 (plus the seed). 61 selfproof + 132 kernel
+  tests pass; ruff clean; **all 8 gates PASS, 0 SKIPPED**; `release check` green.
 
 ## Done (with evidence)
 - **Phase 0/0b**: environment, inventory (ADR-0002), name check (ADR-0001),

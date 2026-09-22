@@ -3,7 +3,16 @@
 All notable changes to this project are documented here, following
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [0.1.0] — 2026-09-22
+
+First tagged release (private). Phases 0–8 complete: the seed and self-hosting
+cutover, all eight gates with corpora, adapters with honest capability levels
+and a generated rules format, the token module, a crafted self-contained
+dashboard, cross-platform packaging, the documentation set, read-only fleet
+enumeration, and release readiness with an SBOM. All eight gates PASS with no
+SKIPPED; `selfproof release check` is green. See
+`docs/reports/build-report-2026-09-22.md` for the honest per-phase status and
+the still-open owner steps (A3/A4, holdout population, commit signing).
 
 ### Added
 - Phase 6 (docs): a real README (value, honest self-build, quickstart,

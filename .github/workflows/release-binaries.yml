@@ -1,0 +1,52 @@
+# Build the single-file `selfproof` binary on each OS (PyInstaller does not
+# cross-compile, so every platform builds its own). Runs on demand or on a tag.
+# Uploads the binaries as workflow artifacts; attaching them to a GitHub Release
+# is a separate, deliberate step. No secrets, read-only token.
+name: release-binaries
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install PyInstaller
+        run: python -m pip install --quiet pyinstaller
+
+      - name: Build binary
+        run: pyinstaller packaging/selfproof.spec --distpath dist --workpath build/pyi --noconfirm
+
+      - name: Smoke test the binary (non-Windows)
+        if: runner.os != 'Windows'
+        run: ./dist/selfproof status
+
+      - name: Smoke test the binary (Windows)
+        if: runner.os == 'Windows'
+        run: ./dist/selfproof.exe status
+
+      - name: Upload binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: selfproof-${{ matrix.os }}
+          path: |
+            dist/selfproof
+            dist/selfproof.exe
+          if-no-files-found: warn

@@ -55,3 +55,10 @@ All notable changes to this project are documented here, following
   on phones and desktops (no service worker, so it stays script-free). New
   `selfproof dashboard open` builds and opens it in the default browser
   (Windows/macOS/Linux).
+- Desktop packaging: a single-file binary via PyInstaller (`packaging/`), with a
+  `release-binaries` CI matrix building Windows/macOS/Linux binaries (each OS
+  builds its own; no cross-compile). Running the binary with no arguments opens
+  the dashboard. Verified locally: an 8.6 MB Windows `selfproof.exe` runs
+  `status`, the `language` gate (bundled data) and `rules check`. Android/iOS is
+  the installable dashboard web page (Add to Home Screen); there is no APK.
+  See `docs/guides/desktop.md`.

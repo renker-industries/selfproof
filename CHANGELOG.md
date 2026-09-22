@@ -3,6 +3,23 @@
 All notable changes to this project are documented here, following
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Added
+- **`selfproof init`**: set Selfproof up in any project so any AI codes to the
+  same rules. It writes `CLAUDE.md` / `AGENTS.md` / `GEMINI.md` (the rules each
+  assistant reads), a `selfproof.toml` with a project-appropriate gate set and a
+  detected test command, and git hooks — then `selfproof build` checks whatever
+  the AI wrote. Guide: `docs/guides/using-with-any-ai.md`.
+- Config `[gates] enabled` lets a project choose which gates run; `init` enables
+  the ones that fit any project (language, proof, slop, security, test_weakening).
+
+### Changed
+- The `security` gate's missing-LICENSE finding is now configurable
+  (`[security] require_license`, default true). `selfproof init` sets it false so
+  a project without a LICENSE still passes; secret, forbidden-dependency-license
+  and workflow detection are unchanged.
+
 ## [0.1.2] — 2026-09-22
 
 Make the installer visible, the way RENCORA does it. Adds a real Windows

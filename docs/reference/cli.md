@@ -3,6 +3,13 @@
 Generated from the parser by
 `scripts/gen_cli_reference.py`. Do not edit by hand.
 
+## `selfproof init`
+
+usage: selfproof init [-h] [--force]
+
+- `-h, --help`: show this help message and exit
+- `--force`: overwrite existing files
+
 ## `selfproof status`
 
 usage: selfproof status [-h]

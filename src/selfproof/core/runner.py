@@ -71,7 +71,11 @@ def run_gates(
     commit_sha = current_commit(root)
     ledger = Ledger(root / cfg["ledger"]["path"])
 
-    names = gate_names if gate_names is not None else list(GATES)
+    if gate_names is not None:
+        names = gate_names
+    else:
+        enabled = cfg.get("gates", {}).get("enabled")
+        names = list(enabled) if enabled else list(GATES)
     results: list[GateResult] = []
     entry_ids: list[str] = []
 

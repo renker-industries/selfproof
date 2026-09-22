@@ -37,7 +37,11 @@ DEFAULT_CONFIG: dict = {
         ],
     },
     "ledger": {"path": "docs/reports/ledger.jsonl"},
+    "security": {"require_license": True},
     "stage": "seed",
+    # Which gates run by default. None means "all registered gates" (used by
+    # Selfproof's own repo). `selfproof init` sets a project-appropriate subset.
+    "gates": {"enabled": None},
 }
 
 

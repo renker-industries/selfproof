@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 # Fast pre-commit check: the language gate over tracked files.
 set -euo pipefail
-case "$(uname -s)" in
-  MINGW*|MSYS*|CYGWIN*) SEP=';' ;;
-  *) SEP=':' ;;
-esac
-export PYTHONPATH="src${SEP}src/renker_core"
+export PYTHONPATH="src"
 python -m selfproof.cli build --gates language

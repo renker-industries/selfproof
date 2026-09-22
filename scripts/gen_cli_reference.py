@@ -9,7 +9,6 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, "src")
-sys.path.insert(0, "src/renker_core")
 
 from selfproof.cli import build_parser  # noqa: E402
 

@@ -25,6 +25,10 @@ selfproof = "selfproof.cli:main"
 where = ["src"]
 include = ["selfproof*", "renker_core*"]
 
+[tool.setuptools.package-data]
+# Ship the language gate's marker data so a pip-installed selfproof works.
+"selfproof.gates" = ["data/*.json"]
+
 [tool.ruff]
 line-length = 100
 target-version = "py311"
@@ -41,5 +45,6 @@ exclude = ["src/renker_core/"]
 
 [tool.pytest.ini_options]
 # Kernel tests run unchanged from the imported subtree; Selfproof tests live in tests/.
+# The kernel package now sits directly at src/renker_core, so only src is needed.
 testpaths = ["tests", "src/renker_core/tests"]
-pythonpath = ["src", "src/renker_core"]
+pythonpath = ["src"]

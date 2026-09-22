@@ -7,7 +7,7 @@ Run the gates, read the evidence, open the dashboard.
 Python 3.11+ and git. From the repository root, put the source on the path:
 
 ```bash
-export PYTHONPATH=src:src/renker_core   # Windows: set to "src;src/renker_core"
+pip install -e .   # or set PYTHONPATH=src to run without installing
 ```
 
 Or use the packaged binary, which needs neither (see

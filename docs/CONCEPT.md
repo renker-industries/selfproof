@@ -268,7 +268,7 @@ Each gate ships with a corpus: `tests/corpus/bad/<gate>/` (known-bad examples it
 | Gate | Checks | Blocks when |
 | --- | --- | --- |
 | `proof` | Runs the configured test, lint and type commands and binds the result to the exact commit | No passing run for the current SHA; stale proof is a failure |
-| `slop` | Non-existent imports and packages, dead code, stubs and placeholders in shipped code, tests without assertions, comments that only repeat the code, over-broad exception handling, copy-pasted blocks | A detector fires and is not suppressed |
+| `slop` | `existing`: placeholder bodies (bare `...`), placeholder markers (TODO/FIXME/XXX/HACK) in comments, over-broad `except`/`except Exception: pass`, and test functions without assertions. `planned` (deferred to vulture/jscpd per ADR-0003): non-existent imports and packages, dead code, comments that only repeat the code, and copy-pasted blocks | A detector fires and is not suppressed |
 | `architecture` | Layering rules, import cycles, complexity and file-size budgets, new dependency without an ADR line and a registry check | A rule is violated or a budget exceeded |
 | `security` | Secrets, static analysis, dependency advisories, workflow linting, license check, SBOM | A finding of severity medium or higher, or an unknown license |
 | `language` | English-only rule for all text files, commit messages, issue and PR templates | Non-English text outside `tests/fixtures/non_english/` |

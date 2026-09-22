@@ -57,16 +57,34 @@ an exact commit and written to a hash-chained ledger anyone can recompute.
 It never claims "absolutely secure", "unhackable" or "bug-free". See
 [SECURITY.md](SECURITY.md).
 
-## Quickstart
+## Use it on your project (with any AI)
+
+Selfproof does not write code — your AI does. It gives every AI the same rules
+and checks whatever it produces.
 
 ```bash
-selfproof build           # run the gates against the current commit
+cd your-project
+selfproof init            # writes CLAUDE.md / AGENTS.md / GEMINI.md, config, hooks
+# code with any AI (each reads its rules file), then:
+selfproof build           # check the change; hooks also run this at commit/push
+selfproof dashboard open  # see what passed and what was prevented
+```
+
+`init` sets up the rules files each assistant reads (Claude Code → `CLAUDE.md`;
+Codex/Cursor/Aider → `AGENTS.md`; Gemini CLI → `GEMINI.md`) and enables a
+project-appropriate gate set. Full walkthrough:
+[use with any AI](docs/guides/using-with-any-ai.md).
+
+## Command reference (short)
+
+```bash
+selfproof build           # run the enabled gates against the current commit
 selfproof ledger verify   # recompute the tamper-evident evidence chain
 selfproof dashboard open  # open the evidence dashboard in your browser
 ```
 
-No install and no typing needed for the last one: the packaged binary opens the
-dashboard when you double-click it.
+No typing needed for the dashboard: the packaged binary opens it when you
+double-click it.
 
 ## The gates
 

@@ -59,8 +59,9 @@ class SecurityGate(Gate):
         root = ctx.repo_root
         findings: list[str] = []
 
+        require_license = ctx.config.get("security", {}).get("require_license", True)
         findings.extend(self._secret_scan(ctx))
-        findings.extend(self._license_check(root))
+        findings.extend(self._license_check(root, require_license=require_license))
         findings.extend(self._workflow_check(root))
 
         ran, not_run, aug_findings = self._augmenters(root)
@@ -136,9 +137,13 @@ class SecurityGate(Gate):
         return findings
 
     @staticmethod
-    def _license_check(root: Path) -> list[str]:
+    def _license_check(root: Path, require_license: bool = True) -> list[str]:
+        # Flags a dependency whose license is forbidden inside an Apache-2.0
+        # project. A missing repository LICENSE is only flagged when
+        # `require_license` is set (default true); `selfproof init` turns it off
+        # for arbitrary projects, where LICENSE presence is not this gate's job.
         out: list[str] = []
-        if not (root / "LICENSE").exists():
+        if require_license and not (root / "LICENSE").exists():
             out.append("license: no LICENSE file")
         pyproject = root / "pyproject.toml"
         if pyproject.exists():

@@ -26,11 +26,30 @@ from .fleet import report as fleet_report
 from .fleet import scan as fleet_scan
 from .improve import load_baseline, measure, ratchet
 from .release import readiness, sbom
+from .scaffold import init as scaffold_init
 from .tokens import aggregate, load_records, report
 
 
 def _repo_root() -> Path:
     return Path.cwd()
+
+
+def _cmd_init(args: argparse.Namespace) -> int:
+    written = scaffold_init(_repo_root(), force=args.force)
+    if not written:
+        print("Selfproof is already set up here (use --force to overwrite).")
+    else:
+        print("Set up Selfproof in this project:")
+        for rel in written:
+            print(f"  + {rel}")
+    print("\nNext steps:")
+    print("  1. Your AI now reads the rules: Claude Code -> CLAUDE.md,")
+    print("     Codex/Cursor/Aider -> AGENTS.md, Gemini CLI -> GEMINI.md.")
+    print("  2. Edit proof.commands in selfproof.toml to your test/lint command.")
+    print("  3. Code with any AI, then run: selfproof build")
+    print("  4. See the evidence: selfproof dashboard open")
+    print("  Hooks run automatically at commit and push (git hooksPath=hooks).")
+    return 0
 
 
 def _cmd_status(_: argparse.Namespace) -> int:
@@ -199,6 +218,10 @@ def build_parser() -> argparse.ArgumentParser:
     """Construct the argument parser (also used to generate the CLI reference)."""
     parser = argparse.ArgumentParser(prog="selfproof", description="Prove AI-written code.")
     sub = parser.add_subparsers(dest="command", required=True)
+
+    p_init = sub.add_parser("init", help="set Selfproof up in the current project")
+    p_init.add_argument("--force", action="store_true", help="overwrite existing files")
+    p_init.set_defaults(func=_cmd_init)
 
     p_status = sub.add_parser("status", help="show stage, ledger head and recent verdicts")
     p_status.set_defaults(func=_cmd_status)

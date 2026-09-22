@@ -40,6 +40,12 @@ def test_license_check_flags_missing_license(tmp_path):
     assert any("no LICENSE" in f for f in findings)
 
 
+def test_license_check_can_ignore_missing_license(tmp_path):
+    # `selfproof init` sets require_license=false for arbitrary projects.
+    findings = SecurityGate._license_check(tmp_path, require_license=False)
+    assert findings == []
+
+
 def test_workflow_check_flags_pull_request_target(tmp_path):
     wf = tmp_path / ".github" / "workflows"
     wf.mkdir(parents=True)

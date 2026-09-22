@@ -37,6 +37,13 @@ usage: selfproof dashboard [-h] {show,export,open} ...
 - `-h, --help`: show this help message and exit
 - `dashboard_command`: 
 
+## `selfproof release`
+
+usage: selfproof release [-h] {check,sbom} ...
+
+- `-h, --help`: show this help message and exit
+- `release_command`: 
+
 ## `selfproof fleet`
 
 usage: selfproof fleet [-h] {scan} ...

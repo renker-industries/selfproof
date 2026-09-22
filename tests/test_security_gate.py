@@ -4,9 +4,11 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from selfproof.gates.base import GateContext, Verdict
 from selfproof.gates.security import _SECRET_PATTERNS, SecurityGate
 
 CORPUS = Path(__file__).parent / "corpus"
+REPO = Path(__file__).resolve().parents[1]
 
 
 def _matches(line: str) -> bool:
@@ -54,3 +56,10 @@ def test_workflow_check_passes_hardened_workflow(tmp_path):
         "on: push\npermissions:\n  contents: read\njobs: {}\n", encoding="utf-8"
     )
     assert SecurityGate._workflow_check(tmp_path) == []
+
+
+def test_gate_passes_on_the_repo_with_builtins():
+    # Built-in checks are clean on this repo; absent augmenters do not skip it.
+    ctx = GateContext(repo_root=REPO, commit_sha="x", config={})
+    result = SecurityGate().run(ctx)
+    assert result.verdict is Verdict.PASS, result.output

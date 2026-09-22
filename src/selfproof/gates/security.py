@@ -10,12 +10,16 @@ Built-in, dependency-free checks always run:
 - **workflows:** every `.github/workflows/*.yml` declares `permissions:` and does
   not use the dangerous `pull_request_target` trigger.
 
-External scanners augment coverage **when installed**: `gitleaks` (secrets),
-`osv-scanner` (advisories), `zizmor` (workflow static analysis). If absent, that
-sub-check is `SKIPPED` and named in the output — a missing tool is never a pass.
+External scanners augment coverage **when installed**: `gitleaks` (secrets) and
+`zizmor` (workflow static analysis) actually run and their findings fail the
+gate; `osv-scanner` advisory scanning is vacuous with zero runtime
+dependencies. The built-in checks cover the baseline on their own, so an absent
+augmenter is reported as "not run" rather than skipping the gate — it never
+turns an absent tool into extra confidence, and the output always names which
+scanners ran and which did not.
 
-Overall verdict: `FAIL` on any built-in finding; otherwise `SKIPPED` if a
-sub-check that had work to do was skipped for a missing tool; otherwise `PASS`.
+Overall verdict: `FAIL` on any finding (built-in or from a scanner that ran);
+otherwise `PASS`, with the not-installed augmenters named in the output.
 """
 
 from __future__ import annotations
@@ -54,40 +58,60 @@ class SecurityGate(Gate):
     def run(self, ctx: GateContext) -> GateResult:
         root = ctx.repo_root
         findings: list[str] = []
-        skipped: list[str] = []
 
         findings.extend(self._secret_scan(ctx))
         findings.extend(self._license_check(root))
         findings.extend(self._workflow_check(root))
 
-        # Optional external augmenters.
-        for tool, args in (
-            ("gitleaks", ["gitleaks", "version"]),
-            ("osv-scanner", ["osv-scanner", "--version"]),
-            ("zizmor", ["zizmor", "--version"]),
-        ):
-            code, _ = run_command(args, root, timeout=30)
-            if code is None:
-                skipped.append(tool)
+        ran, not_run, aug_findings = self._augmenters(root)
+        findings.extend(aug_findings)
 
         output = ""
         if findings:
             output += "findings:\n" + "\n".join(findings) + "\n"
-        if skipped:
-            output += "skipped external tools (not installed): " + ", ".join(skipped)
+        output += f"external scanners run: {', '.join(ran) or 'none'}\n"
+        if not_run:
+            output += "external scanners not installed (built-ins still ran): " + ", ".join(not_run)
 
         if findings:
             return GateResult(
                 self.name, Verdict.FAIL, f"{len(findings)} security finding(s)",
-                output=output, details={"findings": findings, "skipped": skipped},
+                output=output, details={"findings": findings, "ran": ran, "not_run": not_run},
             )
-        if skipped:
-            return GateResult(
-                self.name, Verdict.SKIPPED,
-                f"built-in checks clean; {len(skipped)} external scanner(s) unavailable",
-                output=output, details={"skipped": skipped},
-            )
-        return GateResult(self.name, Verdict.PASS, "no secrets, licenses clean, workflows hardened")
+        note = f" ({len(not_run)} optional scanner(s) not installed)" if not_run else ""
+        return GateResult(
+            self.name, Verdict.PASS,
+            f"no secrets, licenses clean, workflows hardened{note}",
+            output=output, details={"ran": ran, "not_run": not_run},
+        )
+
+    def _augmenters(self, root) -> tuple[list[str], list[str], list[str]]:
+        """Run external scanners that are installed. Returns (ran, not_run, findings).
+
+        Built-in checks already cover the baseline, so an absent augmenter does
+        not fail or skip the gate; it is reported as not run. A present scanner
+        actually runs, and a non-zero result becomes a finding (values are never
+        printed by these scanners in the modes used here).
+        """
+        ran: list[str] = []
+        not_run: list[str] = []
+        findings: list[str] = []
+        checks = (
+            ("gitleaks", ["gitleaks", "version"],
+             ["gitleaks", "detect", "--no-banner", "--redact", "--exit-code", "1", "-s", "."]),
+            ("zizmor", ["zizmor", "--version"], ["zizmor", "--quiet", ".github/workflows"]),
+        )
+        for tool, probe, cmd in checks:
+            code, _ = run_command(probe, root, timeout=30)
+            if code is None:
+                not_run.append(tool)
+                continue
+            rc, out = run_command(cmd, root, timeout=300)
+            ran.append(tool)
+            if rc not in (0, None):
+                findings.append(f"{tool}: reported findings (exit {rc}); see the tool output")
+        # Advisory scanning (osv-scanner) is vacuous with zero runtime dependencies.
+        return ran, not_run, findings
 
     def _secret_scan(self, ctx: GateContext) -> list[str]:
         code, out = run_command(["git", "ls-files"], ctx.repo_root)

@@ -183,9 +183,16 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """CLI entry point. Returns a process exit code."""
+    """CLI entry point. Returns a process exit code.
+
+    With no arguments (for example when the packaged binary is double-clicked),
+    it defaults to opening the dashboard, so the simplest use needs no typing.
+    """
+    effective = sys.argv[1:] if argv is None else argv
+    if not effective:
+        effective = ["dashboard", "open"]
     parser = build_parser()
-    args = parser.parse_args(argv)
+    args = parser.parse_args(effective)
     return args.func(args)
 
 

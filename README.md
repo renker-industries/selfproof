@@ -8,6 +8,28 @@
 [autonomy charter](AUTONOMY_CHARTER.md). Some components in the
 [concept](docs/CONCEPT.md) are still `planned`.
 
+## Download
+
+**Windows — [⬇ Download Selfproof_Setup.exe](https://github.com/renker-industries/selfproof/releases/latest)**
+Run the installer, no Python needed. Double-click Selfproof and the dashboard opens.
+
+**macOS / Linux —** [⬇ download the binary](https://github.com/renker-industries/selfproof/releases/latest),
+or install with one line:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/renker-industries/selfproof/main/install.sh | sh
+```
+
+**Windows PowerShell (one line):**
+
+```powershell
+irm https://raw.githubusercontent.com/renker-industries/selfproof/main/install.ps1 | iex
+```
+
+**Phone —** open the dashboard page and choose "Add to Home Screen". More in
+[running as an app](docs/guides/desktop.md). Until the project is public, these
+downloads work for people with repository access.
+
 ## Why it is different
 
 Most "AI guardrails" ask the model to behave. Selfproof does not trust the
@@ -34,26 +56,6 @@ an exact commit and written to a hash-chained ledger anyone can recompute.
 
 It never claims "absolutely secure", "unhackable" or "bug-free". See
 [SECURITY.md](SECURITY.md).
-
-## Install
-
-Grab a single file from the [Releases page](https://github.com/renker-industries/selfproof/releases/latest)
-and double-click it — that opens the dashboard, no setup. Or install with one line:
-
-```bash
-# macOS / Linux
-curl -fsSL https://raw.githubusercontent.com/renker-industries/selfproof/main/install.sh | sh
-```
-
-```powershell
-# Windows (PowerShell)
-irm https://raw.githubusercontent.com/renker-industries/selfproof/main/install.ps1 | iex
-```
-
-A friendly download page lives at [`docs/site/`](docs/site/index.html) (served on
-GitHub Pages once the project is public). Phones: open the dashboard page and
-choose "Add to Home Screen". Full details in
-[running as an app](docs/guides/desktop.md).
 
 ## Quickstart
 

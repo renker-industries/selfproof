@@ -1,7 +1,6 @@
-# Build the single-file `selfproof` binary on each OS and publish them to the
-# repository's Releases page, so people find the download in the normal place
-# instead of digging through Actions artifacts. Runs on a version tag or on
-# demand. No secrets beyond the built-in token.
+# Build the single-file `selfproof` binary on each OS, plus a Windows installer
+# wizard (Inno Setup), and publish them to the repository's Releases page so the
+# download is visible in the normal place. Runs on a version tag or on demand.
 name: release-binaries
 
 on:
@@ -10,7 +9,7 @@ on:
     tags: ["v*"]
 
 permissions:
-  contents: write # needed to create the GitHub Release and attach the binaries
+  contents: write # needed to create the GitHub Release and attach the files
 
 jobs:
   build:
@@ -50,29 +49,46 @@ jobs:
         shell: bash
         run: ./dist/${{ matrix.asset }} status || true
 
-      - name: Upload build artifact
+      - name: Build Windows installer (Inno Setup)
+        if: matrix.os == 'windows-latest'
+        shell: pwsh
+        run: |
+          choco install innosetup --no-progress -y
+          $ver = ($env:GITHUB_REF_NAME -replace '^v','')
+          if (-not $ver) { $ver = "0.0.0" }
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" "/DAppVersion=$ver" installer\selfproof.iss
+
+      - name: Upload binary artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.asset }}
           path: dist/${{ matrix.asset }}
+
+      - name: Upload Windows installer artifact
+        if: matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Selfproof_Setup.exe
+          path: installer/Output/Selfproof_Setup.exe
 
   release:
     needs: build
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/')
     steps:
-      - name: Download all binaries
+      - name: Download all artifacts
         uses: actions/download-artifact@v4
         with:
           path: dist
           merge-multiple: true
 
-      - name: Create the GitHub Release with the binaries attached
+      - name: Create the GitHub Release with the binaries and installer attached
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release create "${GITHUB_REF_NAME}" \
-            dist/selfproof-linux dist/selfproof-macos dist/selfproof-windows.exe \
+            dist/Selfproof_Setup.exe \
+            dist/selfproof-windows.exe dist/selfproof-macos dist/selfproof-linux \
             --repo "${GITHUB_REPOSITORY}" \
             --title "Selfproof ${GITHUB_REF_NAME}" \
-            --notes "Download the binary for your OS below. See the install scripts and docs/site for one-line installation."
+            --notes "Windows: run Selfproof_Setup.exe. macOS/Linux: download the binary or use the one-line installer. See the README."

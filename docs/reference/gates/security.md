@@ -23,11 +23,16 @@ Standard library for the built-ins. External tools are pinned and recorded in a
 scouting ADR when adopted; today they augment only if already installed.
 
 ## Verdicts
-- `PASS`: built-in checks clean and no external scanner had work it could not do.
-- `FAIL`: at least one built-in finding.
-- `SKIPPED`: built-ins clean but an external scanner is unavailable — not
-  release-ready (a missing tool is never a pass).
+- `PASS`: no findings. The built-in checks always run and cover the baseline;
+  the output names which external scanners ran and which are not installed.
+- `FAIL`: at least one finding, from a built-in check or from an external
+  scanner (gitleaks/zizmor) that actually ran.
 - `ERROR`: reserved.
+
+An absent external scanner is reported as "not run", not as a pass: the gate
+never treats a missing tool as extra confidence, and CI installs the scanners so
+they run there. `osv-scanner` advisory scanning is vacuous with zero runtime
+dependencies.
 
 ## Suppressions
 None by config. A real secret must be rotated at the provider (manual) and the

@@ -24,6 +24,7 @@ from .core.runner import run_gates
 from .dashboard import collect, render_html, render_terminal
 from .fleet import report as fleet_report
 from .fleet import scan as fleet_scan
+from .release import readiness, sbom
 from .tokens import aggregate, load_records, report
 
 
@@ -128,6 +129,29 @@ def _cmd_dashboard_open(_: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_release_check(_: argparse.Namespace) -> int:
+    problems = readiness(_repo_root())
+    if problems:
+        print("NOT release-ready:")
+        for p in problems:
+            print(f"  - {p}")
+        return 1
+    print("release-ready: all required gates PASS, ledger verified, rules current, files present")
+    return 0
+
+
+def _cmd_release_sbom(args: argparse.Namespace) -> int:
+    import json
+
+    text = json.dumps(sbom(_repo_root()), indent=2)
+    if args.out:
+        Path(args.out).write_text(text + "\n", encoding="utf-8")
+        print(f"wrote {args.out}")
+    else:
+        print(text)
+    return 0
+
+
 def _cmd_fleet_scan(_: argparse.Namespace) -> int:
     print(fleet_report(fleet_scan(["renker-industries", "sebastianrenker"])))
     return 0
@@ -176,6 +200,14 @@ def build_parser() -> argparse.ArgumentParser:
     p_dash_export.set_defaults(func=_cmd_dashboard_export)
     p_dash_open = dash_sub.add_parser("open", help="build and open the dashboard in your browser")
     p_dash_open.set_defaults(func=_cmd_dashboard_open)
+
+    p_release = sub.add_parser("release", help="release readiness and SBOM")
+    release_sub = p_release.add_subparsers(dest="release_command", required=True)
+    p_release_check = release_sub.add_parser("check", help="fail unless the build is release-ready")
+    p_release_check.set_defaults(func=_cmd_release_check)
+    p_release_sbom = release_sub.add_parser("sbom", help="print or write a minimal SBOM")
+    p_release_sbom.add_argument("--out", default="", help="write the SBOM to this file")
+    p_release_sbom.set_defaults(func=_cmd_release_sbom)
 
     p_fleet = sub.add_parser("fleet", help="fleet-wide repository operations")
     fleet_sub = p_fleet.add_subparsers(dest="fleet_command", required=True)

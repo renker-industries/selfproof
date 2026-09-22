@@ -15,6 +15,13 @@ All notable changes to this project are documented here, following
   of both accounts read-only via `gh` (`selfproof fleet scan`). Only the two
   charter repositories are ever in write-scope; cross-repo gate scanning and
   before/after "improved" tracking are stated as not implemented yet.
+- Phase 8 (hardening): the `security` gate now actually runs gitleaks/zizmor when
+  installed (their findings fail the gate) and reports absent scanners as "not
+  run" instead of skipping — the built-in checks pass the gate on their own, so
+  all eight gates now PASS with no SKIPPED. Adds `selfproof release check`
+  (refuses to call a build release-ready unless every gate PASSes, the ledger
+  verifies, the generated rules are current and the required files exist) and
+  `selfproof release sbom` (minimal CycloneDX SBOM; zero runtime dependencies).
 - Seed of the platform (Phase 1): repository, Apache-2.0 license and NOTICE,
   SECURITY policy, autonomy charter, and the concept under `docs/`.
 - Imported `renker-core` kernel with full history into `src/renker_core/`

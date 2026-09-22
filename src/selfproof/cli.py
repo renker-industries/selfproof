@@ -114,6 +114,18 @@ def _cmd_dashboard_export(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_dashboard_open(_: argparse.Namespace) -> int:
+    import tempfile
+    import webbrowser
+
+    html_text = render_html(collect(_repo_root()))
+    path = Path(tempfile.gettempdir()) / "selfproof-dashboard.html"
+    path.write_text(html_text, encoding="utf-8")
+    print(f"opening {path}")
+    webbrowser.open(path.as_uri())
+    return 0
+
+
 def _cmd_autopilot(args: argparse.Namespace) -> int:
     root = _repo_root()
     stop = root / ".selfproof" / "STOP"
@@ -155,6 +167,8 @@ def build_parser() -> argparse.ArgumentParser:
     p_dash_export = dash_sub.add_parser("export", help="write the self-contained HTML dashboard")
     p_dash_export.add_argument("--out", required=True, help="output HTML file path")
     p_dash_export.set_defaults(func=_cmd_dashboard_export)
+    p_dash_open = dash_sub.add_parser("open", help="build and open the dashboard in your browser")
+    p_dash_open.set_defaults(func=_cmd_dashboard_open)
 
     p_bench = sub.add_parser("bench", help="token benchmark operations")
     bench_sub = p_bench.add_subparsers(dest="bench_command", required=True)

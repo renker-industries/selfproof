@@ -3,6 +3,15 @@
 All notable changes to this project are documented here, following
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.1.1] — 2026-09-22
+
+Make the download findable. The `release-binaries` workflow now publishes the
+Windows/macOS/Linux binaries to the repository's Releases page on a version tag
+(instead of leaving them as Actions artifacts). Adds one-line installers
+(`install.sh`, `install.ps1`) and a self-contained download page under
+`docs/site/` for GitHub Pages, plus an Install section in the README. Until the
+project is public (A4), these links work for people with repository access.
+
 ## [0.1.0] — 2026-09-22
 
 First tagged release (private). Phases 0–8 complete: the seed and self-hosting

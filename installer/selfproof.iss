@@ -15,7 +15,9 @@ AppPublisher=Renker Industries
 DefaultDirName={autopf}\Selfproof
 DefaultGroupName=Selfproof
 DisableProgramGroupPage=yes
-OutputDir=installer\Output
+; OutputDir is relative to this .iss file's directory (installer\), so "Output"
+; resolves to installer\Output.
+OutputDir=Output
 OutputBaseFilename=Selfproof_Setup
 Compression=lzma2
 SolidCompression=yes

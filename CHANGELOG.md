@@ -6,6 +6,11 @@ All notable changes to this project are documented here, following
 ## [Unreleased]
 
 ### Added
+- **`selfproof start`** and automatic setup: one command sets the project up on
+  first use, checks the code, and opens the dashboard. `selfproof build` also
+  auto-sets-up on first run, so you never run `init` by hand. A project without
+  tests now passes cleanly (no test command is invented). Adds a top-level
+  `QUICKSTART.md`.
 - **`selfproof init`**: set Selfproof up in any project so any AI codes to the
   same rules. It writes `CLAUDE.md` / `AGENTS.md` / `GEMINI.md` (the rules each
   assistant reads), a `selfproof.toml` with a project-appropriate gate set and a

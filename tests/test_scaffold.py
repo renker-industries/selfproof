@@ -3,7 +3,18 @@
 from __future__ import annotations
 
 from selfproof.core.config import DEFAULT_CONFIG, load_config
-from selfproof.scaffold import _PROJECT_GATES, init
+from selfproof.scaffold import _PROJECT_GATES, _detect_proof_commands, init
+
+
+def test_detect_proof_commands_empty_without_tests(tmp_path):
+    commands, _ = _detect_proof_commands(tmp_path)
+    assert commands == []
+
+
+def test_detect_proof_commands_pytest_with_tests(tmp_path):
+    (tmp_path / "tests").mkdir()
+    commands, _ = _detect_proof_commands(tmp_path)
+    assert commands and "pytest" in commands[0]
 
 
 def test_init_creates_config_rules_and_hooks(tmp_path):

@@ -8,7 +8,19 @@ assistant you use.
 Run `selfproof init` in your project, code with any AI, and let the gates check
 each change.
 
-## Set it up (once per project)
+## The fastest way
+
+```bash
+cd your-project
+selfproof start
+```
+
+`start` sets the project up automatically on first use, checks your code, and
+opens the dashboard. `selfproof build` does the same auto-setup on first run, so
+you never have to run `init` by hand. The rest of this page explains what that
+setup contains.
+
+## Set it up explicitly (optional)
 
 ```bash
 cd your-project

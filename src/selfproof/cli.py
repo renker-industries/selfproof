@@ -34,6 +34,16 @@ def _repo_root() -> Path:
     return Path.cwd()
 
 
+def _cmd_start(args: argparse.Namespace) -> int:
+    root = _repo_root()
+    _auto_setup(root)
+    print("Checking your code...\n")
+    rc = _cmd_build(args)
+    print("\nOpening the dashboard...")
+    _cmd_dashboard_open(args)
+    return rc
+
+
 def _cmd_init(args: argparse.Namespace) -> int:
     written = scaffold_init(_repo_root(), force=args.force)
     if not written:
@@ -68,8 +78,25 @@ def _cmd_status(_: argparse.Namespace) -> int:
     return 0
 
 
+def _looks_like_project(root: Path) -> bool:
+    markers = (".git", "pyproject.toml", "setup.py", "package.json", "tests")
+    return any((root / m).exists() for m in markers)
+
+
+def _auto_setup(root: Path) -> bool:
+    """Set Selfproof up automatically on first use. Returns True if it did."""
+    if (root / "selfproof.toml").exists() or not _looks_like_project(root):
+        return False
+    print("First run here — setting up Selfproof automatically...")
+    for rel in scaffold_init(root):
+        print(f"  + {rel}")
+    print()
+    return True
+
+
 def _cmd_build(args: argparse.Namespace) -> int:
     root = _repo_root()
+    _auto_setup(root)
     gate_names = args.gates.split(",") if args.gates else None
     report = run_gates(root, gate_names)
     print(f"commit {report.commit_sha}")
@@ -218,6 +245,10 @@ def build_parser() -> argparse.ArgumentParser:
     """Construct the argument parser (also used to generate the CLI reference)."""
     parser = argparse.ArgumentParser(prog="selfproof", description="Prove AI-written code.")
     sub = parser.add_subparsers(dest="command", required=True)
+
+    p_start = sub.add_parser("start", help="set up (if needed), check the code, open the dashboard")
+    p_start.add_argument("--gates", default="", help="comma-separated gate names (default: all)")
+    p_start.set_defaults(func=_cmd_start)
 
     p_init = sub.add_parser("init", help="set Selfproof up in the current project")
     p_init.add_argument("--force", action="store_true", help="overwrite existing files")

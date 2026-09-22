@@ -60,20 +60,18 @@ It never claims "absolutely secure", "unhackable" or "bug-free". See
 ## Use it on your project (with any AI)
 
 Selfproof does not write code — your AI does. It gives every AI the same rules
-and checks whatever it produces.
+and checks whatever it produces. **One command sets everything up:**
 
 ```bash
 cd your-project
-selfproof init            # writes CLAUDE.md / AGENTS.md / GEMINI.md, config, hooks
-# code with any AI (each reads its rules file), then:
-selfproof build           # check the change; hooks also run this at commit/push
-selfproof dashboard open  # see what passed and what was prevented
+selfproof start   # auto-sets-up (rules for every AI + checks), checks, opens the dashboard
 ```
 
-`init` sets up the rules files each assistant reads (Claude Code → `CLAUDE.md`;
-Codex/Cursor/Aider → `AGENTS.md`; Gemini CLI → `GEMINI.md`) and enables a
-project-appropriate gate set. Full walkthrough:
-[use with any AI](docs/guides/using-with-any-ai.md).
+That is the whole setup — no `init` step to run yourself. Then code with any AI
+(each reads the rules file Selfproof wrote — Claude Code → `CLAUDE.md`,
+Codex/Cursor/Aider → `AGENTS.md`, Gemini CLI → `GEMINI.md`) and run
+`selfproof build` to check the change. See [QUICKSTART.md](QUICKSTART.md) or the
+[full walkthrough](docs/guides/using-with-any-ai.md).
 
 ## Command reference (short)
 

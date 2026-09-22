@@ -24,6 +24,7 @@ from .core.runner import run_gates
 from .dashboard import collect, render_html, render_terminal
 from .fleet import report as fleet_report
 from .fleet import scan as fleet_scan
+from .improve import load_baseline, measure, ratchet
 from .release import readiness, sbom
 from .tokens import aggregate, load_records, report
 
@@ -129,6 +130,33 @@ def _cmd_dashboard_open(_: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_improve_measure(_: argparse.Namespace) -> int:
+    root = _repo_root()
+    current = measure(root)
+    baseline = load_baseline(root)
+    print("metrics:")
+    for name, value in sorted(current.items()):
+        delta = ""
+        if baseline and name in baseline:
+            diff = value - baseline[name]
+            delta = f"  (baseline {baseline[name]}, {'+' if diff >= 0 else ''}{diff})"
+        print(f"  {name:<22} {value}{delta}")
+    if baseline is None:
+        print("no ratchet baseline yet; run `selfproof improve ratchet`")
+    return 0
+
+
+def _cmd_improve_ratchet(_: argparse.Namespace) -> int:
+    moved, problems = ratchet(_repo_root())
+    if moved:
+        print("ratchet: baseline moved to the current metrics")
+        return 0
+    for p in problems:
+        print(f"  - {p}")
+    print("ratchet: baseline unchanged")
+    return 1 if any("->" in p for p in problems) else 0
+
+
 def _cmd_release_check(_: argparse.Namespace) -> int:
     problems = readiness(_repo_root())
     if problems:
@@ -200,6 +228,15 @@ def build_parser() -> argparse.ArgumentParser:
     p_dash_export.set_defaults(func=_cmd_dashboard_export)
     p_dash_open = dash_sub.add_parser("open", help="build and open the dashboard in your browser")
     p_dash_open.set_defaults(func=_cmd_dashboard_open)
+
+    p_improve = sub.add_parser("improve", help="measure metrics and move the ratchet baseline")
+    improve_sub = p_improve.add_subparsers(dest="improve_command", required=True)
+    p_improve_measure = improve_sub.add_parser("measure", help="print metrics vs the baseline")
+    p_improve_measure.set_defaults(func=_cmd_improve_measure)
+    p_improve_ratchet = improve_sub.add_parser(
+        "ratchet", help="move the baseline if nothing regressed"
+    )
+    p_improve_ratchet.set_defaults(func=_cmd_improve_ratchet)
 
     p_release = sub.add_parser("release", help="release readiness and SBOM")
     release_sub = p_release.add_subparsers(dest="release_command", required=True)

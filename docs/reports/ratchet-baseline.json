@@ -1,0 +1,11 @@
+{
+  "metrics": {
+    "adapters": 7,
+    "corpus_bad": 4,
+    "corpus_good": 3,
+    "gates": 8,
+    "runtime_dependencies": 0,
+    "src_lines": 2771,
+    "test_functions": 66
+  }
+}

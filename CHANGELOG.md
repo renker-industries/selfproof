@@ -6,6 +6,11 @@ All notable changes to this project are documented here, following
 ## [Unreleased]
 
 ### Added
+- Phase 6 (docs): a real README (value, honest self-build, quickstart,
+  run-as-app), explanation pages (how self-building works, what Selfproof
+  proves, security model), a configuration reference and glossary, a
+  getting-started tutorial, and the wiki manifest. All pass the language and
+  docs_claims gates.
 - Seed of the platform (Phase 1): repository, Apache-2.0 license and NOTICE,
   SECURITY policy, autonomy charter, and the concept under `docs/`.
 - Imported `renker-core` kernel with full history into `src/renker_core/`

@@ -1,49 +1,76 @@
 # Selfproof
 
-> Provider-neutral platform that checks AI-written code for slop and security
-> problems, records evidence for every check, and builds itself through a
-> controlled loop of agents and its own gates. Its kernel is `renker-core`.
+> Selfproof checks AI-written code for slop and security problems, records
+> evidence for every check on a tamper-evident ledger, and builds itself through
+> its own gates. Its kernel is `renker-core`.
 
-**Status: bootstrapping (private).** This repository is being built by an
-autonomous local agent under a written authorization charter
-([`AUTONOMY_CHARTER.md`](AUTONOMY_CHARTER.md)). Nothing here is released. Many
-components described in the [concept](docs/CONCEPT.md) are `planned`, not built.
+**Status: bootstrapping (private).** Built by a local agent under a written
+[autonomy charter](AUTONOMY_CHARTER.md). Some components in the
+[concept](docs/CONCEPT.md) are still `planned`.
 
-## What Selfproof promises (and nothing beyond it)
+## Why it is different
 
-1. Every "done", "correct" or "secure" statement is backed by an executed check
-   bound to the exact commit.
-2. Every check leaves an entry in a tamper-evident ledger anyone can verify.
-3. Each release has zero known open findings of severity medium or higher,
-   according to named tools, versions and date.
-4. Everything it claims about itself is evidence-linked or labelled `planned`.
+Most "AI guardrails" ask the model to behave. Selfproof does not trust the
+model: it runs deterministic gates in git and CI, and every result is bound to
+an exact commit and written to a hash-chained ledger anyone can recompute.
 
-It does **not** promise "absolutely secure", "unhackable" or "no bugs". See
+- **Deterministic kernel.** `renker-core` decides allow/deny/approve,
+  independent of any model.
+- **Enforced for every agent.** Git hooks and CI apply no matter which agent
+  wrote the code (Claude Code, Codex, Gemini CLI, Cursor, Aider).
+- **Evidence, not adjectives.** No "secure" without a check behind it. The
+  strongest claim allowed is "0 known findings at commit X per tools Y on date Z".
+- **It builds itself, honestly.** Failed self-build attempts are shown as
+  plainly as successes.
+
+## What it promises (and nothing more)
+
+1. Every "done"/"correct"/"secure" statement is bound to an executed check on the
+   exact commit.
+2. Every check leaves a tamper-evident ledger entry anyone can verify.
+3. Each release has zero known open findings of medium+ severity, per named
+   tools, versions and date.
+4. Every self-claim is evidence-linked or labelled `planned`.
+
+It never claims "absolutely secure", "unhackable" or "bug-free". See
 [SECURITY.md](SECURITY.md).
 
-## Honest self-building
-
-An AI agent (by default Claude Code, run locally by the maintainer) writes each
-change on a branch. Selfproof's own gates check the change and record evidence.
-Changes to the gates, the kernel and other protected paths always require a
-human. The language model writes the code, the gates check it, and a human owns
-the rules.
-
-## Quickstart (once built)
+## Quickstart
 
 ```bash
-selfproof status          # current phase and metrics
-selfproof ledger verify   # recompute the evidence chain
-selfproof build           # run one build-loop task
+selfproof build           # run the gates against the current commit
+selfproof ledger verify   # recompute the tamper-evident evidence chain
+selfproof dashboard open  # open the evidence dashboard in your browser
 ```
 
-## Layout
+No install and no typing needed for the last one: the packaged binary opens the
+dashboard when you double-click it. See [running as an app](docs/guides/desktop.md).
 
-See [docs/CONCEPT.md](docs/CONCEPT.md) section 4.4 and the per-directory READMEs
-under `src/`.
+## The gates
+
+`language`, `proof`, `slop`, `architecture`, `test_weakening`, `docs_coverage`,
+`docs_claims`, `security` — each with a known-bad / known-good corpus, so the
+gates themselves are tested. Details in
+[docs/reference/gates/](docs/reference/gates/).
+
+## How self-building works, honestly
+
+An AI agent (by default Claude Code, run locally) writes each change on a branch.
+Selfproof's own gates check it and record evidence. Changes to the gates, the
+kernel and other protected paths always need a human. The model writes the code,
+the gates check it, and a human owns the rules. More in
+[docs/explanation/how-self-building-works.md](docs/explanation/how-self-building-works.md).
+
+## Where it comes from
+
+| Part | Source |
+| --- | --- |
+| Kernel (`renker-core`) | the owner's own decision kernel |
+| Gate engine, fleet mode | the owner's CUSTOS, split into a neutral core |
+| Token layer | the owner's RENKER FLINT |
+| External scanners (optional) | gitleaks, osv-scanner, zizmor (orchestrated, never bundled) |
 
 ## License
 
 New code is Apache-2.0 ([LICENSE](LICENSE), [NOTICE](NOTICE)). The imported
-kernel `src/renker_core/` is proprietary until relicensing (charter A3) is
-executed; its own `LICENSE` governs that subtree until then.
+kernel `src/renker_core/` stays proprietary until relicensing is executed.

@@ -25,11 +25,19 @@ After the first commit, never push to `main`. Keep PRs small, one concern each,
 and fill in the PR template — including the documentation checklist.
 
 ## Gates must pass
-Run the gates locally before opening a PR:
+Install once from a fresh clone, then run the gates before opening a PR:
 
 ```bash
-PYTHONPATH=src:src/renker_core python -m selfproof.cli build
-PYTHONPATH=src:src/renker_core python -m selfproof.cli ledger verify
+pip install -e .          # or: pip install .
+selfproof build
+selfproof ledger verify
+```
+
+Without an install, put the sources on the path with `PYTHONPATH=src` (the kernel
+package lives directly at `src/renker_core`):
+
+```bash
+PYTHONPATH=src python -m selfproof.cli build
 ```
 
 A missing tool is `SKIPPED`, never a pass. Releases need zero `SKIPPED` among

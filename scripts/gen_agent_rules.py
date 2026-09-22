@@ -7,7 +7,6 @@ from __future__ import annotations
 import sys
 
 sys.path.insert(0, "src")
-sys.path.insert(0, "src/renker_core")
 
 from selfproof.core.rules import write_generated  # noqa: E402
 

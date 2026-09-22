@@ -32,20 +32,46 @@ jobs:
 
       - name: Kernel and Selfproof tests
         env:
-          PYTHONPATH: src:src/renker_core
+          PYTHONPATH: src
         run: python -m pytest -q
 
       - name: Check generated rules files are current
         env:
-          PYTHONPATH: src:src/renker_core
+          PYTHONPATH: src
         run: python -m selfproof.cli rules check
 
       - name: Run gates (proof + language) and record evidence
         env:
-          PYTHONPATH: src:src/renker_core
+          PYTHONPATH: src
         run: python -m selfproof.cli build
 
       - name: Verify the evidence ledger
         env:
-          PYTHONPATH: src:src/renker_core
+          PYTHONPATH: src
         run: python -m selfproof.cli ledger verify
+
+  install-smoke:
+    # Install the package into a clean virtualenv from a fresh checkout, with no
+    # PYTHONPATH tricks, and run the CLI. This catches a broken `pip install`
+    # (e.g. the kernel package shadowing) that the PyInstaller binary would hide.
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install into a clean virtualenv
+        run: |
+          python -m venv .venv
+          ./.venv/bin/python -m pip install --quiet --upgrade pip
+          ./.venv/bin/python -m pip install .
+
+      - name: Smoke test the installed CLI (no PYTHONPATH)
+        run: |
+          ./.venv/bin/selfproof --help
+          ./.venv/bin/selfproof status
+          ./.venv/bin/selfproof build --gates language

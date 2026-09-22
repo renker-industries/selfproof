@@ -15,4 +15,4 @@ chmod +x hooks/commit-msg hooks/pre-commit hooks/pre-push
 | `pre-commit` | the `language` gate over tracked files |
 | `pre-push` | all gates and `ledger verify` |
 
-Hooks require `python` on PATH and run with `PYTHONPATH=src:src/renker_core`.
+Hooks require `python` on PATH and run with `PYTHONPATH=src`.

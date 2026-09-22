@@ -9,11 +9,10 @@ import os
 
 root = os.path.abspath(os.getcwd())
 src = os.path.join(root, "src")
-kernel = os.path.join(root, "src", "renker_core")
 
 a = Analysis(
     [os.path.join(root, "packaging", "entry.py")],
-    pathex=[src, kernel],
+    pathex=[src],
     binaries=[],
     datas=[
         (os.path.join(src, "selfproof", "gates", "data", "german_markers.json"),

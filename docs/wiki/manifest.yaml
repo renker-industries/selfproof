@@ -1,0 +1,29 @@
+# Which docs are published to the GitHub wiki. The source stays in the repo,
+# reviewed and gated like code; a workflow syncs these to the wiki (concept 10.3).
+# The wiki's git repo exists only after the first page is created in the web UI
+# (an owner step, tracked in OWNER_TODO).
+pages:
+  - title: Home
+    source: README.md
+  - title: Getting Started
+    source: docs/tutorials/getting-started.md
+  - title: Glossary
+    source: docs/reference/glossary.md
+  - title: How Self-Building Works
+    source: docs/explanation/how-self-building-works.md
+  - title: What Selfproof Proves
+    source: docs/explanation/what-selfproof-proves.md
+  - title: Security Model
+    source: docs/explanation/security-model.md
+  - title: Configuration Reference
+    source: docs/reference/config.md
+  - title: CLI Reference
+    source: docs/reference/cli.md
+  - title: Capability Matrix
+    source: docs/reference/capability-matrix.md
+  - title: Running as an App
+    source: docs/guides/desktop.md
+  - title: Contributing
+    source: CONTRIBUTING.md
+  - title: Changelog
+    source: CHANGELOG.md

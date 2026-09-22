@@ -15,6 +15,11 @@ SKIPPED; `selfproof release check` is green. See
 the still-open owner steps (A3/A4, holdout population, commit signing).
 
 ### Added
+- Phase 9 (improvement engine): `selfproof improve measure` reports real repo
+  metrics against a ratchet baseline, and `selfproof improve ratchet` moves the
+  baseline only when no tracked metric regresses
+  (`docs/reports/ratchet-baseline.json`). The overfitting-resistant holdout
+  cycles still need a non-builder-populated holdout (an owner step).
 - Phase 6 (docs): a real README (value, honest self-build, quickstart,
   run-as-app), explanation pages (how self-building works, what Selfproof
   proves, security model), a configuration reference and glossary, a

@@ -3,6 +3,13 @@
 Generated from the parser by
 `scripts/gen_cli_reference.py`. Do not edit by hand.
 
+## `selfproof start`
+
+usage: selfproof start [-h] [--gates GATES]
+
+- `-h, --help`: show this help message and exit
+- `--gates`: comma-separated gate names (default: all)
+
 ## `selfproof init`
 
 usage: selfproof init [-h] [--force]

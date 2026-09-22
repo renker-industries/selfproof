@@ -73,17 +73,17 @@ _PROJECT_GATES = ["language", "proof", "slop", "security", "test_weakening"]
 
 
 def _detect_proof_commands(root: Path) -> tuple[list, str]:
-    """Return (commands, note) guessing how to test the project."""
+    """Return (commands, note) guessing how to test the project.
+
+    Only sets a test command when there is something to test, so a project
+    without tests passes cleanly instead of failing on an empty test run.
+    """
     if (root / "package.json").exists():
         return [["npm", "test", "--silent"]], "detected package.json (npm test)"
-    is_python = (
-        (root / "pyproject.toml").exists()
-        or (root / "setup.py").exists()
-        or (root / "tests").is_dir()
-    )
-    if is_python:
-        return [["python", "-m", "pytest", "-q"]], "detected a Python project (pytest)"
-    return [], "no test command detected — edit proof.commands in selfproof.toml"
+    has_tests = (root / "tests").is_dir() or any(root.rglob("test_*.py"))
+    if has_tests:
+        return [["python", "-m", "pytest", "-q"]], "detected Python tests (pytest)"
+    return [], "no tests found yet — add your test command to proof.commands later"
 
 
 def _toml(commands: list) -> str:

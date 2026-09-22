@@ -67,10 +67,16 @@ cd your-project
 selfproof start   # auto-sets-up (rules for every AI + checks), checks, opens the dashboard
 ```
 
-That is the whole setup — no `init` step to run yourself. Then code with any AI
-(each reads the rules file Selfproof wrote — Claude Code → `CLAUDE.md`,
-Codex/Cursor/Aider → `AGENTS.md`, Gemini CLI → `GEMINI.md`) and run
-`selfproof build` to check the change. See [QUICKSTART.md](QUICKSTART.md) or the
+That is the whole setup — no `init` step to run yourself. After that you **only
+talk to your AI in its terminal** and Selfproof runs on its own:
+
+- Claude Code checks automatically when it finishes (an installed
+  `.claude/settings.json` Stop hook).
+- Any AI is checked automatically when it commits (git hooks).
+
+Each AI reads the rules file Selfproof wrote — Claude Code → `CLAUDE.md`,
+Codex/Cursor/Aider → `AGENTS.md`, Gemini CLI → `GEMINI.md`. See
+[QUICKSTART.md](QUICKSTART.md) or the
 [full walkthrough](docs/guides/using-with-any-ai.md).
 
 ## Command reference (short)

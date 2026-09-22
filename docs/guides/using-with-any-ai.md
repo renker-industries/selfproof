@@ -37,15 +37,25 @@ This writes:
   `proof.commands` to match your project (e.g. `pytest`, `npm test`).
 - git hooks — the gates run at commit and push automatically.
 
-## The daily loop
+## The daily loop — hands off
 
-1. **Code with any AI.** It reads its rules file and follows the same rules.
-2. **Check the change:** `selfproof build`. Each gate reports `PASS`, `FAIL` or
-   `SKIPPED`. The hooks also run this at commit and push.
-3. **See the evidence:** `selfproof dashboard open`. It shows how many checks
-   ran, what was prevented, and the self-built share.
-4. **Verify anytime:** `selfproof ledger verify` recomputes the tamper-evident
-   chain.
+You only talk to your AI in its terminal. Selfproof runs on its own:
+
+- **Claude Code** checks automatically when it finishes a response, because
+  `init` writes a `.claude/settings.json` Stop hook that runs the fast static
+  gates. If something fails, Claude sees it and can fix it before you continue.
+- **Any AI** (Claude Code, Codex, Cursor, Aider, Gemini CLI) is checked
+  automatically when it commits, through the git hooks — the full gate set at
+  push.
+
+So the flow is just: *type your request to the AI → it codes → Selfproof checks
+by itself*. The `selfproof` binary must be on your PATH (the installer adds it).
+
+You can still run it by hand anytime:
+
+- `selfproof build` — run the gates now.
+- `selfproof dashboard open` — see how many checks ran and what was prevented.
+- `selfproof ledger verify` — recompute the tamper-evident chain.
 
 ## What each gate checks in your project
 

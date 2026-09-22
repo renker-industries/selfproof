@@ -3,6 +3,15 @@
 All notable changes to this project are documented here, following
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.1.2] — 2026-09-22
+
+Make the installer visible, the way RENCORA does it. Adds a real Windows
+installer wizard (`installer/selfproof.iss`, Inno Setup) that the release
+workflow builds and attaches as `Selfproof_Setup.exe` — run it, no Python
+needed, with Start-menu/desktop shortcuts and an optional PATH entry. The README
+now leads with a prominent **Download** section, and the download page headlines
+the Windows installer.
+
 ## [0.1.1] — 2026-09-22
 
 Make the download findable. The `release-binaries` workflow now publishes the

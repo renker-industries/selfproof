@@ -71,6 +71,26 @@ $SP ledger verify
 
 _PROJECT_GATES = ["language", "proof", "slop", "security", "test_weakening"]
 
+# Claude Code project settings: run the fast static gates automatically whenever
+# Claude finishes a response, so you only talk to the AI and Selfproof checks the
+# result on its own. The full gate set still runs at commit via the git hooks.
+_CLAUDE_SETTINGS = """\
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "selfproof build --gates language,slop,test_weakening"
+          }
+        ]
+      }
+    ]
+  }
+}
+"""
+
 
 def _detect_proof_commands(root: Path) -> tuple[list, str]:
     """Return (commands, note) guessing how to test the project.
@@ -122,6 +142,8 @@ def init(repo_root: str | Path, *, force: bool = False) -> list[str]:
     commands, _ = _detect_proof_commands(root)
     write("selfproof.toml", _toml(commands))
     write("rules/agents.yaml", DEFAULT_RULES_YAML)
+    # Claude Code native integration: check automatically when the AI finishes.
+    write(".claude/settings.json", _CLAUDE_SETTINGS)
     (root / ".selfproof").mkdir(exist_ok=True)
 
     # Generate the per-agent rules files from the source we just wrote.

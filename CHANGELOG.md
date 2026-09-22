@@ -6,6 +6,11 @@ All notable changes to this project are documented here, following
 ## [Unreleased]
 
 ### Added
+- **Hands-off checking:** `init` now writes a Claude Code `.claude/settings.json`
+  Stop hook, so Selfproof runs the fast static gates automatically when Claude
+  Code finishes a response — you only talk to the AI. Any AI is still checked
+  automatically when it commits (git hooks). Documented in the README, QUICKSTART
+  and the using-with-any-ai guide.
 - **`selfproof start`** and automatic setup: one command sets the project up on
   first use, checks the code, and opens the dashboard. `selfproof build` also
   auto-sets-up on first run, so you never run `init` by hand. A project without

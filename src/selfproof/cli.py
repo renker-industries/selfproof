@@ -52,13 +52,14 @@ def _cmd_init(args: argparse.Namespace) -> int:
         print("Set up Selfproof in this project:")
         for rel in written:
             print(f"  + {rel}")
-    print("\nNext steps:")
-    print("  1. Your AI now reads the rules: Claude Code -> CLAUDE.md,")
-    print("     Codex/Cursor/Aider -> AGENTS.md, Gemini CLI -> GEMINI.md.")
-    print("  2. Edit proof.commands in selfproof.toml to your test/lint command.")
-    print("  3. Code with any AI, then run: selfproof build")
-    print("  4. See the evidence: selfproof dashboard open")
-    print("  Hooks run automatically at commit and push (git hooksPath=hooks).")
+    print("\nYou are set up. Just talk to your AI in its terminal — Selfproof runs")
+    print("on its own:")
+    print("  - Claude Code checks automatically when it finishes a response")
+    print("    (.claude/settings.json Stop hook).")
+    print("  - Any AI is checked automatically when it commits (git hooks).")
+    print("  Each AI reads its rules file: Claude Code -> CLAUDE.md,")
+    print("  Codex/Cursor/Aider -> AGENTS.md, Gemini CLI -> GEMINI.md.")
+    print("\n  Run it yourself anytime: selfproof build | selfproof dashboard open")
     return 0
 
 

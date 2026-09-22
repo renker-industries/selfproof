@@ -30,17 +30,16 @@ rules files every AI reads and turns on the checks), runs the checks, and opens
 the dashboard. You do not run `init` yourself — `start` and `build` set the
 project up on first use.
 
-## 3. Code with any AI, then check
+## 3. Just talk to your AI — Selfproof checks on its own
 
 Open your project with any AI. It reads the rules file Selfproof created
-(`CLAUDE.md`, `AGENTS.md` or `GEMINI.md`) and follows the same rules. When it is
-done:
+(`CLAUDE.md`, `AGENTS.md` or `GEMINI.md`) and follows the same rules. You do not
+run any check by hand:
 
-```bash
-selfproof build
-```
+- **Claude Code** checks automatically when it finishes a response.
+- **Any AI** is checked automatically when it commits (git hooks).
 
-This checks whatever the AI wrote. Green means the rules held; a failure tells
-you what to fix. The git hooks also run this automatically at commit and push.
+A failure tells you (and the AI) what to fix. Want to check manually anyway? Run
+`selfproof build`.
 
 That is it. More detail: [use with any AI](docs/guides/using-with-any-ai.md).

@@ -27,6 +27,14 @@ def test_init_creates_config_rules_and_hooks(tmp_path):
         assert (tmp_path / "hooks" / hook).exists(), hook
 
 
+def test_init_writes_claude_code_stop_hook(tmp_path):
+    init(tmp_path)
+    settings = tmp_path / ".claude" / "settings.json"
+    assert settings.exists()
+    text = settings.read_text(encoding="utf-8")
+    assert "Stop" in text and "selfproof build" in text
+
+
 def test_init_writes_a_project_gate_subset(tmp_path):
     init(tmp_path)
     cfg = load_config(tmp_path)

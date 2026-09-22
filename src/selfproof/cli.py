@@ -22,6 +22,8 @@ from .core.ledger import Ledger, LedgerError
 from .core.rules import check_generated, write_generated
 from .core.runner import run_gates
 from .dashboard import collect, render_html, render_terminal
+from .fleet import report as fleet_report
+from .fleet import scan as fleet_scan
 from .tokens import aggregate, load_records, report
 
 
@@ -126,6 +128,11 @@ def _cmd_dashboard_open(_: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_fleet_scan(_: argparse.Namespace) -> int:
+    print(fleet_report(fleet_scan(["renker-industries", "sebastianrenker"])))
+    return 0
+
+
 def _cmd_autopilot(args: argparse.Namespace) -> int:
     root = _repo_root()
     stop = root / ".selfproof" / "STOP"
@@ -169,6 +176,11 @@ def build_parser() -> argparse.ArgumentParser:
     p_dash_export.set_defaults(func=_cmd_dashboard_export)
     p_dash_open = dash_sub.add_parser("open", help="build and open the dashboard in your browser")
     p_dash_open.set_defaults(func=_cmd_dashboard_open)
+
+    p_fleet = sub.add_parser("fleet", help="fleet-wide repository operations")
+    fleet_sub = p_fleet.add_subparsers(dest="fleet_command", required=True)
+    p_fleet_scan = fleet_sub.add_parser("scan", help="list and classify repos of both accounts")
+    p_fleet_scan.set_defaults(func=_cmd_fleet_scan)
 
     p_bench = sub.add_parser("bench", help="token benchmark operations")
     bench_sub = p_bench.add_subparsers(dest="bench_command", required=True)

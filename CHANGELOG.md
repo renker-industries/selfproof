@@ -11,6 +11,10 @@ All notable changes to this project are documented here, following
   proves, security model), a configuration reference and glossary, a
   getting-started tutorial, and the wiki manifest. All pass the language and
   docs_claims gates.
+- Phase 7 (fleet): `selfproof.fleet` enumerates and classifies the repositories
+  of both accounts read-only via `gh` (`selfproof fleet scan`). Only the two
+  charter repositories are ever in write-scope; cross-repo gate scanning and
+  before/after "improved" tracking are stated as not implemented yet.
 - Seed of the platform (Phase 1): repository, Apache-2.0 license and NOTICE,
   SECURITY policy, autonomy charter, and the concept under `docs/`.
 - Imported `renker-core` kernel with full history into `src/renker_core/`

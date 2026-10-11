@@ -8,7 +8,10 @@ section 4.1, principle 6).
 
 from __future__ import annotations
 
+import os
+import re
 import subprocess
+from collections.abc import Mapping
 from dataclasses import dataclass, field
 from enum import StrEnum
 from pathlib import Path
@@ -76,6 +79,36 @@ class Gate:
         raise NotImplementedError
 
 
+_SECRET_ENV_NAME = re.compile(
+    r"(?i)(api[_-]?key|secret|token|passw(or)?d|credential|private[_-]?key|bearer|cookie"
+    r"|^(anthropic|openai|gemini|google|aws|azure|gh|github|hf|huggingface|mistral|groq"
+    r"|openrouter|cohere|xai|deepseek|stripe|vercel|npm|pypi|twine)_)"
+)
+_ALLOW_ENV = "SELFPROOF_ENV_ALLOW"
+
+
+def scrubbed_env(env: Mapping[str, str] | None = None) -> dict[str, str]:
+    """Return ``env`` without variables that look like credentials.
+
+    Gate subprocesses (the target project's tests, linters, scanners) must not
+    inherit API keys or tokens: AI-written code runs there. A variable stays
+    only if it is named in the comma-separated ``SELFPROOF_ENV_ALLOW``.
+
+    Args:
+        env: Source environment; defaults to ``os.environ``.
+
+    Returns:
+        A new dict safe to pass as ``subprocess.run(env=...)``.
+    """
+    source = dict(os.environ if env is None else env)
+    allowed = {n.strip().upper() for n in source.get(_ALLOW_ENV, "").split(",") if n.strip()}
+    return {
+        k: v
+        for k, v in source.items()
+        if k.upper() in allowed or not _SECRET_ENV_NAME.search(k)
+    }
+
+
 def run_command(cmd: list[str], cwd: Path, timeout: int = 600) -> tuple[int | None, str]:
     """Run ``cmd`` and return ``(exit_code, combined_output)``.
 
@@ -99,6 +132,7 @@ def run_command(cmd: list[str], cwd: Path, timeout: int = 600) -> tuple[int | No
             capture_output=True,
             text=True,
             timeout=timeout,
+            env=scrubbed_env(),
         )
     except FileNotFoundError:
         return None, f"tool not found: {cmd[0]}"

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Selfproof — Evidence ledger for AI-written code</title>
+<meta name="description" content="Provider-neutral gates for AI-written code (slop, security, language, tests) enforced in git and CI, with a hash-chained evidence ledger. Pre-release, builds itself through its own gates. Apache-2.0.">
+<meta name="keywords" content="AI code verification, AI-written code, code slop detector, evidence ledger, git hooks, CI gates, Claude Code, Python">
+<link rel="canonical" href="https://renker-industries.github.io/selfproof/">
+<meta name="color-scheme" content="light dark">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta property="og:type" content="website"><meta property="og:title" content="Selfproof">
+<meta property="og:description" content="Checks AI-written code and records evidence for every check on a tamper-evident ledger."><meta property="og:url" content="https://renker-industries.github.io/selfproof/">
+<meta property="og:image" content="https://renker-industries.github.io/selfproof/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://renker-industries.github.io/selfproof/og.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareSourceCode", "name": "Selfproof", "description": "Provider-neutral gates for AI-written code (slop, security, language, tests) enforced in git and CI, with a hash-chained evidence ledger. Pre-release, builds itself through its own gates. Apache-2.0.", "codeRepository": "https://github.com/renker-industries/selfproof", "programmingLanguage": "Python", "url": "https://renker-industries.github.io/selfproof/", "author": {"@type": "Person", "name": "Sebastian Renker", "url": "https://github.com/sebastianrenker"}, "license": "Apache-2.0"}</script>
+<style>
+:root{--bg:#eceef1;--card:#f7f8fa;--ink:#16171a;--ink2:#565961;--rule:#d5d8dd;--acc:#5b47e0;--ok:#0f7a54;--warn:#8f6410}
+@media(prefers-color-scheme:dark){:root{--bg:#161719;--card:#1c1e21;--ink:#e9e9ec;--ink2:#a2a4ab;--rule:#2c2e34;--acc:#8f80ff;--ok:#39c78d;--warn:#d6ad4e}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.w{max-width:960px;margin:0 auto;padding:0 20px}header{border-bottom:1px solid var(--rule)}header .w{display:flex;justify-content:space-between;align-items:center;padding:14px 20px}
+header a{color:var(--ink);text-decoration:none;font-weight:600}nav a{margin-left:18px;font-weight:400;color:var(--ink2)}
+.hero{padding:72px 0 40px}.tag{font:500 13px/1 ui-monospace,Consolas,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--acc)}
+h1{font-size:clamp(34px,6vw,56px);line-height:1.08;margin:12px 0 16px;letter-spacing:-.02em}.lead{font-size:21px;color:var(--ink2);max-width:60ch}
+.btn{display:inline-block;margin:24px 12px 0 0;padding:12px 20px;border-radius:6px;border:1px solid var(--acc);text-decoration:none;font-weight:600}
+.btn.p{background:var(--acc);color:#fff}.btn.s{color:var(--acc)}h2{font-size:26px;margin:48px 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}.c{background:var(--card);border:1px solid var(--rule);border-radius:8px;padding:18px}
+.c h3{margin:0 0 6px;font-size:18px}.c p{margin:0;color:var(--ink2);font-size:16px}
+.note{border-left:4px solid var(--warn);background:var(--card);padding:14px 18px;border-radius:0 8px 8px 0}.note b{color:var(--warn)}
+footer{border-top:1px solid var(--rule);margin-top:64px;padding:28px 0;color:var(--ink2);font-size:15px}footer a{color:var(--acc)}
+a{color:var(--acc)}:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+</style></head><body>
+<header><div class="w"><a href="" rel="noopener noreferrer">Selfproof</a><nav><a href="#features">Features</a><a href="#honest">Limits</a><a href="" rel="noopener noreferrer">GitHub</a></nav></div></header>
+<main class="w">
+<section class="hero"><div class="tag">Python · open source</div><h1>Checks AI-written code and records evidence for every check on a tamper-evident ledger.</h1>
+<p class="lead">Most AI guardrails ask the model to behave. Selfproof runs deterministic gates in git and CI for whichever agent wrote the code, and binds every result to an exact commit on a ledger anyone can recompute.</p>
+<a href="" rel="noopener noreferrer">View on GitHub</a><a href="" rel="noopener noreferrer">Read the README</a></section>
+<h2 id="features">What it does</h2><div class="grid"><div class="c"><h3>Deterministic gates</h3><p>Slop, security, language and test-weakening checks run in git hooks and CI.</p></div><div class="c"><h3>Any agent</h3><p>Rules files for Claude Code, Codex, Cursor, Aider and Gemini CLI; hooks apply to all of them.</p></div><div class="c"><h3>Evidence ledger</h3><p>Each result is bound to a commit and written to a hash-chained ledger.</p></div><div class="c"><h3>Strict claims</h3><p>The strongest statement allowed is “0 known findings at commit X per tools Y on date Z”.</p></div><div class="c"><h3>Installers</h3><p>Windows installer and one-line installers for macOS, Linux and PowerShell are published as releases.</p></div></div>
+<h2 id="honest">Honest limits</h2><div class="note"><b>Read this first.</b> Pre-release and bootstrapping: no version is supported for production use yet. Branch protection is a signed-approval workaround for a solo maintainer, the hash chain cannot detect a truncated tail except against release anchors, and the kernel does not yet cryptographically authenticate actors. Some concept components are still planned.</div>
+
+</main>
+<footer><div class="w">License: Apache-2.0 · <a href="" rel="noopener noreferrer">Source</a> · Part of <a href="https://sebastianrenker.github.io/">RENKER</a> by <a href="" rel="noopener noreferrer">Sebastian Renker</a></div></footer>
+</body></html>

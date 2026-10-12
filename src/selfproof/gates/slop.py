@@ -79,6 +79,7 @@ class SlopGate(Gate):
 
     def _ast_findings(self, tree: ast.AST, rel: str) -> list[str]:
         out: list[str] = []
+        protocol_members = self._protocol_member_ids(tree)
         for node in ast.walk(tree):
             if isinstance(node, ast.ExceptHandler):
                 broad = node.type is None or (
@@ -91,9 +92,37 @@ class SlopGate(Gate):
                 if not self._has_assertion(node):
                     out.append(f"{rel}:{node.lineno}: test '{node.name}' has no assertion")
             if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
-                if self._is_ellipsis_only(node) and not self._is_protocol_ok(node):
+                if (
+                    self._is_ellipsis_only(node)
+                    and not self._is_protocol_ok(node)
+                    and id(node) not in protocol_members
+                ):
                     out.append(f"{rel}:{node.lineno}: '{node.name}' is a '...' placeholder")
         return out
+
+    @staticmethod
+    def _protocol_member_ids(tree: ast.AST) -> set[int]:
+        """Ids of functions defined directly in a ``typing.Protocol`` class body.
+
+        A ``...`` body is the idiomatic way to declare a Protocol member, so it
+        is not a placeholder. Matches ``Protocol``, ``typing.Protocol`` and the
+        generic form ``Protocol[T]``.
+        """
+
+        def is_protocol_base(base: ast.expr) -> bool:
+            if isinstance(base, ast.Subscript):
+                base = base.value
+            if isinstance(base, ast.Name):
+                return base.id == "Protocol"
+            return isinstance(base, ast.Attribute) and base.attr == "Protocol"
+
+        ids: set[int] = set()
+        for cls in ast.walk(tree):
+            if isinstance(cls, ast.ClassDef) and any(is_protocol_base(b) for b in cls.bases):
+                for member in cls.body:
+                    if isinstance(member, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                        ids.add(id(member))
+        return ids
 
     @staticmethod
     def _has_assertion(node: ast.FunctionDef) -> bool:
